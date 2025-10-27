@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network</title>
+    <link rel="icon" type="image/png" href="../assests/LOGO.png">
+    <link rel="stylesheet" href="../CommonCSS/allnav&footer.css">
+    <link rel="stylesheet" href="network.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <section class="nav-containner">
+        <div class="nav-name">
+            <img src="../assests/LOGO.png" alt="Logo" id="logo">
+            <h1>Festora</h1>
+        </div>
+        <div class="nav">
+            <a href="../index.html" id="dropbtn">Home</a>
+            <div class="dropdown">
+                <a href="../event/events.html" id="dropbtn">Events
+
+                </a>
+                <div class="dropdown-content">
+                    <a href="../EventsGallary/gallary.html">Gallary</a>
+                    <a href="../Organizers/Organizers.html">Our Team</a>
+                    <a href="../Network/network.html"> Our Network</a>
+                    <a href="../Reviews/form.html">Reviews</a>
+                </div>
+            </div>
+
+            <a href="../Contactus/contact.html" id="dropbtn">Contact us</a>
+            <a href="../About Us/About Us.html" id="dropbtn">About us</a>
+            <div class="dropdown">
+                <a href="../Booking/booking.html" id="dropbtn">Booking
+
+                </a>
+                <div class="dropdown-content">
+                    <a href="../Payments/paymetnt._page.html">Payments</a>
+                </div>
+            </div>
+            <a href="../services/Services.html" id="dropbtn">Our Service</a>
+        </div>
+    </section>
+
+    <div class="pageheader">
+        <div class="pageheader-container">
+            <h1 id="headid">Our Network</h1>
+            <span>The amazing team making every event unforgettable</span>
+        </div>
+    </div>
+
+
+
+    <section class="onetwork-section">
+        <div class="branchContainer">
+            <div class="Branch-video">
+                <video class="bg-video" muted preload="auto">
+                    <source src="myVid.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="networks">
+                <img src="../Network/colombo.jpg" alt="Colombo">
+                <h3>Colombo Branch</h3>
+            </div>
+
+            <div class="details">
+                <p><b>🏢 Address:</b> <br>
+                    No. 45, Lotus Avenue, Colombo 07, Western Province, Sri Lanka.
+                </p><br>
+                <p>Hotline Numbers: <br>
+                    <b>📞 0112 345 678 </b><br>
+                    <b>📞 0115 678 901</b>
+                </p>
+            </div>
+        </div>
+        
+        <div class="branchContainer">
+            <div class="Branch-video">
+                <video class="bg-video" muted preload="auto">
+                    <source src="myVid.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="networks">
+                <img src="../Network/PYD_7935.JPG" alt="Gampaha">
+                <h3>Gampaha Branch</h3>
+            </div>
+            <div class="details">
+                <p><b>🏢 Address:</b> <br>
+                    No. 12, Thilakarathna Mawatha, Gampaha 11000, Western Province, Sri Lanka.
+                </p><br>
+                <p>Hotline Numbers: <br>
+                    <b>📞 0332 224 567 </b><br>
+                    <b>📞 0334 789 012</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="branchContainer">
+            <div class="Branch-video">
+                <video class="bg-video" muted preload="auto">
+                    <source src="myVid.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="networks">
+                <img src="../Network/kaluthara.jpg" alt="Kaluthara">
+                <h3>Kaluthara Branch</h3>
+            </div>
+            <div class="details">
+                <p><b>🏢 Address:</b> <br>
+                    No. 78, Riverside Road, Kalutara South, Kalutara 12000, Western Province, Sri Lanka.
+                </p><br>
+                <p>Hotline Numbers: <br>
+                    <b>📞 0342 113 456</b><br>
+                    <b>📞 0347 665 432</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="branchContainer">
+            <div class="Branch-video">
+                <video class="bg-video" muted preload="auto">
+                    <source src="myVid.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="networks">
+                <img src="../Network/mathara.jpg" alt="Matara">
+                <h3>Matara Branch</h3>
+            </div>
+            <div class="details">
+                <p><b>🏢 Address:</b> <br>
+                    No. 23, Nilwala Street, Matara 81000, Southern Province, Sri Lanka
+                </p><br>
+                <p>Hotline Numbers: <br>
+                    <b>📞 0412 987 654</b><br>
+                    <b>📞 0412 987 655</b>
+                </p>
+            </div>
+        </div>
+
+    </section>
+    <br><br>
+    </section>
+
+    <section class="countdown">
+        <p>New Branch Opening:</p>
+        <div id="countdown-timer">Loading countdown...</div>
+    </section>
+
+    <script>
+
+        const targetDate = new Date("2025-07-01 00:00:00");
+        const countdownEl = document.getElementById("countdown-timer");
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft <= 0) {
+                countdownEl.textContent = "Recruitment is now open!";
+                return;
+            }
+
+            const d = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const h = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((timeLeft / (1000 * 60)) % 60);
+            const s = Math.floor((timeLeft / 1000) % 60);
+
+            countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+        }
+
+        updateCountdown(); 
+        setInterval(updateCountdown, 1000);
+
+//Bg videos for containers:
+            document.querySelectorAll('.branchContainer').forEach(container => {
+            const video = container.querySelector('.bg-video');
+
+            container.addEventListener('mouseenter', function() {
+            video.currentTime = 0;
+            video.play();
+            });
+
+            container.addEventListener('mouseleave', function() {
+            video.pause();
+            video.currentTime = 0;
+            });
+        });
+    </script>
+
+
+    <section class="footer">
+        <div class="footer-text">
+
+            <p> © 2019 Festora – The Events Specialists All Rights Reserved.</p>
+            <div class="terms">
+                <a href="#">Terms of Use</a> |
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="social-buttons">
+                <a href="https://facebook.com/" class="fa fa-facebook"></a>
+                <a href="https://twitter.com/" class="fa fa-twitter"></a>
+                <a href="https://google.com/" class="fa fa-google"></a>
+                <a href="https://linkedin.com/" class="fa fa-linkedin"></a>
+                <a href="https://youtube.com/" class="fa fa-youtube"></a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

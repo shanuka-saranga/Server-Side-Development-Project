@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Payment page of Event Management site">
+  <meta name="keywords" content="Event, Functions, Management">
+  <meta name="author" content="Festora">
+  <title>Payments</title>
+  <link rel="stylesheet" href="../Payments/style_sheet_for_payment_page.css">
+  <link rel="icon" type="image/png" href="../assests/LOGO.png">
+  <link rel="stylesheet" href="../CommonCSS/allnav&footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+  <!-- //navigation bar -->
+  <section class="nav-containner">
+    <div class="nav-name">
+      <img src="../assests/LOGO.png" alt="Logo" id="logo">
+      <h1>Festora</h1>
+    </div>
+    <div class="nav">
+      <a href="../index.html" id="dropbtn">Home</a>
+      <div class="dropdown">
+        <a href="../event/events.html" id="dropbtn">Events
+
+        </a>
+        <div class="dropdown-content">
+          <a href="../EventsGallary/gallary.html">Gallary</a>
+          <a href="../Organizers/Organizers.html">Our Team</a>
+          <a href="../Network/network.html"> Our Network</a>
+          <a href="../Reviews/form.html">Reviews</a>
+        </div>
+      </div>
+
+      <a href="../Contactus/contact.html" id="dropbtn">Contact us</a>
+      <a href="../About Us/About Us.html" id="dropbtn">About us</a>
+      <div class="dropdown">
+        <a href="../Booking/booking.html" id="dropbtn">Booking
+
+        </a>
+        <div class="dropdown-content">
+          <a href="../Payments/paymetnt._page.html">Payments</a>
+        </div>
+      </div>
+      <a href="../services/Services.html" id="dropbtn">Our Service</a>
+    </div>
+  </section>
+
+  <!-- ribbon -->
+  <div class="pageheader">
+    <div class="pageheader-container">
+      <h1>OTHER PAYMENT OPTIONS</h1>
+      <p>Transforming your events into unforgettable experiences with Us.</p>
+    </div>
+  </div>
+
+  <div class="container_payment">
+    <div class="Payment_form">
+      <form name="Payment_form" id="p_form" action="" method="post" onsubmit="dispMsg(event)">
+
+        <h3>Other Payments</h3>
+        <br>
+
+        <h5>Personal Information</h5>
+        <br>
+        <div class="input_details">
+          <div class="i_name">
+            <label for="name">Name :</label>
+            <input class="text_inputs" type="text" placeholder="Enter your name" required>
+          </div>
+
+          <div class="i_email">
+            <label for="email">Your Email :</label>
+            <input class="text_inputs" type="email" placeholder="Enter Your Email" required>
+          </div>
+        </div>
+
+        <div class="input_details">
+          <div class="i_phone">
+            <label for="name">Phone :</label>
+            <input class="text_inputs" type="tel" pattern="\d{10}" placeholder="Enter your Phone Number" required>
+          </div>
+          <div class="i_address">
+            <label for="Address"> Your Address :</label>
+            <input class="text_inputs" type="text" placeholder="Enter Your Address" required>
+          </div>
+        </div>
+        <hr><br>
+
+        <div class="input_details">
+          <div class="i_attach_file">
+            <label for="i_attach_file">Attach Payment Slip or Proof :</label>
+            <input class="text_inputs" type="file">
+          </div>
+          <div class="i_comments">
+            <label for="comments">Any notice:</label>
+            <textarea name="notice" class="text_inputs"></textarea>
+          </div>
+        </div>
+        <div class="button_class">
+          <button type="submit" value="submit" class="s_button">Click to submit
+            !</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+
+    function dispMsg(event) {
+      event.preventDefault();
+      alert("Successfully Submitted!");
+      window.location.href = "../Payments/paymetnt._page.html";
+    }
+
+  </script>
+
+
+
+  <!-- footer -->
+
+  <section class="footer">
+    <div class="footer-text">
+
+      <p>© 2025 Festora Events – The Events Specialists All Rights Reserved.</p>
+      <div class="terms">
+        <a href="#">Terms of Use</a> |
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="social-buttons">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-google"></a>
+        <a href="#" class="fa fa-linkedin"></a>
+        <a href="#" class="fa fa-youtube"></a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Payment page of Event Management site">
+  <meta name="keywords" content="Event, Functions, Management">
+  <meta name="author" content="Festora">
+  <title>Payments</title>
+  <link rel="stylesheet" href="style_sheet_for_payment_page.css">
+  <link rel="icon" type="image/png" href="../assests/LOGO.png">
+  <link rel="stylesheet" href="../CommonCSS/allnav&footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+  <!-- //navigation bar -->
+  <section class="nav-containner">
+    <div class="nav-name">
+      <img src="../assests/LOGO.png" alt="Logo" id="logo">
+      <h1>Festora</h1>
+    </div>
+    <div class="nav">
+      <a href="../index.html" id="dropbtn">Home</a>
+      <div class="dropdown">
+        <a href="../event/events.html" id="dropbtn">Events
+
+        </a>
+        <div class="dropdown-content">
+          <a href="../EventsGallary/gallary.html">Gallary</a>
+          <a href="../Organizers/Organizers.html">Our Team</a>
+          <a href="../Network/network.html"> Our Network</a>
+          <a href="../Reviews/form.html">Reviews</a>
+        </div>
+      </div>
+
+      <a href="../Contactus/contact.html" id="dropbtn">Contact us</a>
+      <a href="../About Us/About Us.html" id="dropbtn">About us</a>
+      <div class="dropdown">
+        <a href="../Booking/booking.html" id="dropbtn">Booking
+
+        </a>
+        <div class="dropdown-content">
+          <a href="../Payments/paymetnt._page.html">Payments</a>
+        </div>
+      </div>
+      <a href="../services/Services.html" id="dropbtn">Our Service</a>
+    </div>
+  </section>
+
+  <!-- ribbon -->
+  <div class="pageheader">
+    <div class="pageheader-container">
+      <h1  id="headid">Our Pricing plans</h1>
+      <p>Transforming your events into unforgettable experiences with Us.</p>
+    </div>
+  </div>
+
+
+
+  <div class="Pricing_plans">
+    <div class="plans_cont">
+      <div class="plan">
+        <div class="plan_value"> <small>Staring From</small> <br> <b>$299</b> </div>
+        <div class="value_title">
+          <h2>BASIC</h2>
+          <p class="palan_describe_para">With Basic facilities</p>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <p>1 Day Event<br><br>Standard Services Consultation<br><br>Breakfast Free for Everyone<br><br>FREE Gifts for
+          Kids</p>
+        <br>
+        <input class="plan_select_radio_button" name="package" type="radio" value="Basic">
+      </div>
+
+
+      <div class="plan">
+        <div class="plan_value"><small>Staring From</small><br><b>$499</b></div>
+        <div class="value_title">
+          <h2>STANDARD</h2>
+          <p class="palan_describe_para">With Standard facilities</p>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <p>2 Days Event<br><br>Full Services Consultation<br><br>Breakfast,Lunch Free for Everyone<br><br>FREE Gifts for
+          Kids</p>
+        <br>
+        <input class="plan_select_radio_button" name="package" type="radio" value="Standard">
+      </div>
+
+
+      <div class="plan">
+        <div class="plan_value"><small>Staring From</small><br><b>$699</b></div>
+        <div class="value_title">
+          <h2>PREMIUM</h2>
+          <p class="palan_describe_para">With Premium facilities</p>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <p>3 Days Event<br><br>Premium Services Consultation<br><br>Breakfast,Lunch & Dinner Free for
+          Everyone<br><br>FREE Gifts for Kids</p>
+        <br>
+        <input class="plan_select_radio_button" type="radio" name="package" value="Premium">
+      </div>
+    </div>
+    <hr>
+    <br>
+    <div class="btn">
+      <a href="#p_form" class="button" >Scroll Down ⬇️</a>
+
+    </div>
+  </div>
+
+
+
+
+  <div class="container_payment">
+    <div class="Payment_form">
+      <form name="Payment_form" id="p_form" action="" method="post">
+        <h3>Payment Methods</h3>
+        <div class="payment_method">
+          <input type="radio" name="payment_method" value="Debit or Credit Card">
+          <label for="Payment Methods">Debit or Credit Cards</label>
+          <br><br>
+          <input type="radio" name="payment_method" value="Paypal">
+          <label for="Payment Methods">Paypal</label>
+          <br><br>
+          <input type="radio" name="payment_method" value="Bank Transfers">
+          <label for="Payment Methods">Bank Transfers</label>
+          <br><br>
+          <input type="radio" name="payment_method" value="other">
+          <label for="Payment Methods">Other</label>
+          <br><br>
+
+        </div>
+
+        <div class="button_class">
+          <a href="https://example.com" class="button" onclick="checkValied(event)">Go to
+            to payment Site</a>
+        </div>
+        <br>
+
+      </form>
+    </div>
+  </div>
+  <script>
+
+    function checkValied(event) {
+      const packageSelected = checkValiedpackage();
+      if (!packageSelected) {
+        event.preventDefault();
+        alert('Please select a Package to Continue! Thank You!');
+        return;
+      }
+
+      const paymentMethods = document.getElementsByName('payment_method');
+      let selected = false;
+      let isOtherSelected = false;
+      let ispaypalSelected = false;
+      let iscardSelected = false;
+      let isbankSelected = false;
+
+      for (let i = 0; i < paymentMethods.length; i++) {
+        if (paymentMethods[i].checked) {
+          selected = true;
+          if (paymentMethods[i].value === "other") {
+            isOtherSelected = true;
+          }
+          if (paymentMethods[i].value === "Paypal") {
+           ispaypalSelected = true;
+          }
+          if (paymentMethods[i].value === "Debit or Credit Card") {
+           iscardSelected = true;
+          }
+          if (paymentMethods[i].value === "Bank Transfers") {
+           isbankSelected = true;
+          }
+          break;
+        }
+      }
+
+      if (!selected) {
+        event.preventDefault();
+        alert('Please select a payment method to Continue! Thank You!');
+        return;
+      }
+
+      if (isOtherSelected) {
+        event.preventDefault();
+        window.location.href = "../Other Payment Site/Other_payment.html"; 
+      }
+       if (ispaypalSelected) {
+        event.preventDefault();
+        window.location.href = "https://www.paypal.com/sg/home"; 
+      }
+      if (iscardSelected) {
+        event.preventDefault();
+        window.location.href = "https://www.combankapps.lk/mpgs-client/"; 
+      }
+      if (isbankSelected) {
+        event.preventDefault();
+        window.location.href = "https://www.combank.lk/non-resident/sending-money-home"; 
+      }
+    }
+let valu= document.getElementsByClassName('plan_select_radio_button').value;
+valu.addEventlistner("click",function(){
+console.log(valu);
+})
+
+    
+
+    function checkValiedpackage() {
+      const paymentMethods = document.getElementsByName('package');
+      for (let i = 0; i < paymentMethods.length; i++) {
+        if (paymentMethods[i].checked) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+
+  </script>
+
+
+
+  <section class="footer">
+    <div class="footer-text">
+
+      <p>© 2025 Festora Events – The Events Specialists All Rights Reserved.</p>
+      <div class="terms">
+        <a href="#">Terms of Use</a> |
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="social-buttons">
+        <a href="https://facebook.com/" class="fa fa-facebook"></a>
+        <a href="https://twitter.com/" class="fa fa-twitter"></a>
+        <a href="https://google.com/" class="fa fa-google"></a>
+        <a href="https://linkedin.com/" class="fa fa-linkedin"></a>
+        <a href="https://youtube.com/" class="fa fa-youtube"></a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+</body>
+
+</html>
