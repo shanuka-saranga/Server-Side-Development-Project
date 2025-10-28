@@ -1,0 +1,131 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ body {
+     padding-top: 70px;
+     font-family: Arial, sans-serif;
+ }
+
+ .navbar-container {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 1000;
+     background-color: #2d2d2d;
+     padding: 12px 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ }
+
+ .navbar-logo {
+     display: flex;
+     align-items: center;
+     color: #ff6b00;
+     font-size: 24px;
+     font-weight: bold;
+     text-decoration: none;
+ }
+
+ .navbar-logo img {
+     width: 32px;
+     height: 32px;
+     margin-right: 8px;
+ }
+
+ .navbar-menu {
+     display: flex;
+     gap: 30px;
+     list-style: none;
+ }
+
+ .navbar-menu a {
+     color: white;
+     text-decoration: none;
+     font-size: 16px;
+     padding: 8px 0;
+     transition: color 0.3s;
+ }
+
+ .navbar-menu a:hover,
+ .navbar-menu a.active {
+     color: #ff6b00;
+ }
+
+ /* AUTH BUTTONS - RIGHT CORNER */
+ .navbar-auth {
+     display: flex;
+     gap: 50px;
+     align-items: center;
+
+ }
+
+ .btn-auth {
+     background-color: #007bff;
+     color: white;
+     border: none;
+     padding: 8px 16px;
+     border-radius: 20px;
+     font-size: 14px;
+     text-decoration: none;
+     transition: background 0.3s;
+     margin-right: 10px;
+ }
+
+ .btn-auth:hover {
+     background-color: #0056b3;
+ }
+
+ .btn-auth.signup {
+     background-color: #28a745;
+ }
+
+ .btn-auth.signup:hover {
+     background-color: #218838;
+ }
+
+ /* USER PROFILE (SHOW ONLY WHEN LOGGED IN) */
+ .user-profile {
+     color: white;
+     font-weight: bold;
+     font-size: 14px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     margin-right: 10px;
+
+
+ }
+
+ .user-profile img {
+     width: 30px;
+     height: 30px;
+     border-radius: 50%;
+     object-fit: cover;
+     border: 2px solid #ff6b00;
+ }
+
+ /* HIDE LOGIN/SIGNUP WHEN LOGGED IN */
+
+
+ @media (max-width: 768px) {
+     .navbar-container {
+         flex-direction: column;
+         padding: 15px;
+     }
+
+     .navbar-menu {
+         margin: 15px 0;
+         flex-wrap: wrap;
+         justify-content: center;
+     }
+
+     body {
+         padding-top: 120px;
+     }
+ }
