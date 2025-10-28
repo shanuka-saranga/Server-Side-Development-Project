@@ -11,7 +11,7 @@ GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
 
 
 
-
+-- Shanuka creates. Methum Use it
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE users (
 );
 
 
-
+-- Samadi
 CREATE TABLE events (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE events (
     FOREIGN KEY (organizer_id) REFERENCES organizers(organizer_id) ON DELETE SET NULL
 );
 
-
+-- Tharusha
 CREATE TABLE organizers (
     organizer_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE organizers (
     phone VARCHAR(20)
 );
 
-
+-- Isuru
 CREATE TABLE bookings (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE bookings (
 );
 
 
-
+-- Imashi
 CREATE TABLE payments (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE payments (
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE
 );
 
-
+-- Banti
 CREATE TABLE reviews (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -81,18 +81,15 @@ CREATE TABLE reviews (
 );
 
 
-CREATE TABLE network (
-    network_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    website VARCHAR(255)
-);
-
-
-
-CREATE TABLE event_gallery (
-    gallery_id INT AUTO_INCREMENT PRIMARY KEY,
-    event_id INT NOT NULL,
-    image_path VARCHAR(255) NOT NULL,
-    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (event_id) REFERENCES events(event_id) ON DELETE CASCADE
+-- Tharinda
+CREATE TABLE appointment (
+    user_id INT,
+    fname VARCHAR(255),
+    reason VARCHAR(100),
+    date DATE,
+    contact CHAR(10),
+    branch VARCHAR (50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    (user_id,fname,date)PRIMARY KEY,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL,
 );
