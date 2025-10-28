@@ -1,18 +1,11 @@
+-- NOTICE : DONT change the oder of the tables, Dont change PK & FK.
+drop database if exists FESTORA;
+drop user if exists 'admin'@'localhost';
 CREATE DATABASE FESTORA;
-
-
 USE FESTORA;
 
-
-
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-
-GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
-
-
-
--- Shanuka creates. Methum Use it
-CREATE TABLE users (
+-- Shanuka creates. Methum uses it
+CREATE TABLE user (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -22,74 +15,75 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
--- Samadi
-CREATE TABLE events (
-    event_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    location VARCHAR(255),
-    start_date DATETIME,
-    end_date DATETIME,
-    organizer_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (organizer_id) REFERENCES organizers(organizer_id) ON DELETE SET NULL
-);
-
 -- Tharusha
-CREATE TABLE organizers (
+CREATE TABLE organizer (
     organizer_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(20)
 );
 
+-- Samadi
+CREATE TABLE event (
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    location VARCHAR(255),
+    start_date DATETIME,
+    end_date DATETIME,
+    organizer_id INT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (organizer_id) REFERENCES organizer(organizer_id) ON DELETE SET NULL
+);
+
 -- Isuru
-CREATE TABLE bookings (
+CREATE TABLE booking (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     event_id INT NOT NULL,
     tickets INT DEFAULT 1,
     payment_status ENUM('pending','paid','cancelled') DEFAULT 'pending',
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES events(event_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
 
-
 -- Imashi
-CREATE TABLE payments (
+CREATE TABLE payment (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     payment_method ENUM('card','paypal','other') DEFAULT 'card',
     status ENUM('success','failed','pending') DEFAULT 'pending',
-    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
 );
 
 -- Banti
-CREATE TABLE reviews (
+CREATE TABLE review (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    event_id INT NOT NULL,
-    rating INT CHECK(rating BETWEEN 1 AND 5),
+    rating INT CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES events(event_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
-
 
 -- Tharinda
 CREATE TABLE appointment (
-    user_id INT,
+    appointment_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
     fname VARCHAR(255),
     reason VARCHAR(100),
     date DATE,
     contact CHAR(10),
-    branch VARCHAR (50),
+    branch VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    (user_id,fname,date)PRIMARY KEY,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE SET NULL
 );
+
+-- Admin user
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
+GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
