@@ -1,0 +1,65 @@
+.group{
+    
+max-width: 500px;
+margin: auto;
+background-color: bisque;
+
+}
+
+.sub{
+    text-align: center;
+    background-color: burlywood;
+    padding: 15px;
+}
+h2{
+    color: brown;
+}
+
+.title{
+    font-weight: bold;
+    padding: 10px;
+    font-size: 50px;
+    text-align: center;
+    font-family: sans-serif;
+    color:#FE9179;
+}
+.img{
+background-position: center;
+height: auto;
+
+
+}
+.table{
+    text-align: center;
+}
+p{
+    text-align: left;
+}
+.stars{
+    color: brown;
+}
+input {
+    width: 80%;
+    padding: 6px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+textarea {
+  
+    padding: 2px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    
+}
+
+label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+    
+}
