@@ -6,29 +6,88 @@ $message = "";
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
-    // Get form data and escape special characters
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $reason = mysqli_real_escape_string($conn, $_POST['reason']);
-    $date = mysqli_real_escape_string($conn, $_POST['date']);
-    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
-    $branch = mysqli_real_escape_string($conn, $_POST['branch']);
+    // Get form data
+    $name = $_POST['name'] ?? '';
+    $reason = $_POST['reason'] ?? '';
+    $date = $_POST['date'] ?? '';
+    $contact = $_POST['contact'] ?? '';
+    $branch = $_POST['branch'] ?? '';
+    
+    // Validation flag
+    $isValid = true;
+    $errorMsg = "";
+    
+    // Validate Name - only alphabetic characters and spaces
+    if (empty($name)) {
+        $isValid = false;
+        $errorMsg = "Please enter your name";
+    } elseif (!preg_match("/^[a-zA-Z\s]+$/", $name)) {
+        $isValid = false;
+        $errorMsg = "Please enter a valid name (letters and spaces only)";
+    }
+    
+    // Validate Reason - must be selected (not empty)
+    if ($isValid && empty($reason)) {
+        $isValid = false;
+        $errorMsg = "Please select an event type";
+    }
+    
+    // Validate Date - not empty and not past date
+    if ($isValid && empty($date)) {
+        $isValid = false;
+        $errorMsg = "Please enter a valid date";
+    } elseif ($isValid && !empty($date)) {
+        $selectedDate = strtotime($date);
+        $today = strtotime(date('Y-m-d'));
+        if ($selectedDate < $today) {
+            $isValid = false;
+            $errorMsg = "Please enter a valid date";
+        }
+    }
+    
+    // Validate Contact - only numbers and exactly 10 digits
+    if ($isValid && empty($contact)) {
+        $isValid = false;
+        $errorMsg = "Enter a phone number";
+    } elseif ($isValid && !preg_match("/^[0-9]{10}$/", $contact)) {
+        $isValid = false;
+        $errorMsg = "Contact number can only have 10 digits";
+    }
+    
+    // Validate Branch - not empty
+    if ($isValid && empty($branch)) {
+        $isValid = false;
+        $errorMsg = "Select the branch that you want to visit";
+    }
+    
+    // If all validations pass, insert into database
+    if ($isValid) {
+        // Escape special characters for security
+        $name = mysqli_real_escape_string($conn, $name);
+        $reason = mysqli_real_escape_string($conn, $reason);
+        $date = mysqli_real_escape_string($conn, $date);
+        $contact = mysqli_real_escape_string($conn, $contact);
+        $branch = mysqli_real_escape_string($conn, $branch);
 
-    // Prepare SQL query
-    $sql = "INSERT INTO appointment (fname, reason, date, contact, branch)
-            VALUES ('$name', '$reason', '$date', '$contact', '$branch')";
+        // Prepare SQL query - reason is now always required
+        $sql = "INSERT INTO appointment (fname, reason, date, contact, branch)
+                VALUES ('$name', '$reason', '$date', '$contact', '$branch')";
 
-    // Execute query
-    if (mysqli_query($conn, $sql)) {
-        $message = "<script>alert('Appointment submitted successfully');</script>";
+        // Execute query
+        if (mysqli_query($conn, $sql)) {
+            $message = "<script>alert('Appointment submitted successfully');</script>";
+        } else {
+            $message = "<script>alert('Error: " . addslashes(mysqli_error($conn)) . "');</script>";
+        }
     } else {
-        $message = "<h2 style='color:red; text-align:center; margin-top:20px;'>Error: " . mysqli_error($conn) . "</h2>";
+        // Show specific validation error message
+        $message = "<script>alert('$errorMsg');</script>";
     }
 }
 
 // Close connection
 mysqli_close($conn);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -182,10 +241,10 @@ mysqli_close($conn);
     <form action="" method="POST">
       
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+      <input type="text" id="name" name="name" placeholder="Enter your full name">
 
       <label for="reason">Reason / Event Type</label>
-      <select id="reason" name="reason" required>
+      <select id="reason" name="reason">
         <option value="">-- Select Event Type --</option>
         <option value="Social Meeting">Social Meeting</option>
         <option value="Birthday Party">Birthday Party</option>
@@ -196,13 +255,13 @@ mysqli_close($conn);
       </select>
 
       <label for="date">Preferred Date to Visit</label>
-      <input type="date" id="date" name="date" required>
+      <input type="date" id="date" name="date">
 
       <label for="contact">Contact Number</label>
-      <input type="text" id="contact1" name="contact" placeholder="e.g. 0771234567" required>
+      <input type="text" id="contact" name="contact" placeholder="e.g. 0771234567">
 
       <label for="branch">Preferred Branch</label>
-      <select id="branch" name="branch" required>
+      <select id="branch" name="branch">
         <option value="">-- Select Branch --</option>
         <option value="Colombo">Colombo</option>
         <option value="Gampaha">Gampaha</option>
@@ -215,7 +274,7 @@ mysqli_close($conn);
   </div>
 
   <div class="image-container">
-    <img src="https://cdn.prod.website-files.com/5f55ff47b6d23a11cb496a69/68235a933c9fbf612456d36d_Purpose%20of%20one%20on%20one%20meetings.jpg" alt="Festora Event Meeting">
+    <img src="../assests/appointment.jpg" alt="Festora Event Meeting">
   </div>
 </section>
 
