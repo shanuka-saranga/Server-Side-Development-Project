@@ -61,16 +61,23 @@ CREATE TABLE payment (
 );
 
 -- Review table
-CREATE TABLE review (
-    review_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    event_id INT NOT NULL,
-    rating INT CHECK (rating BETWEEN 1 AND 5),
-    comment TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
+
+CREATE TABLE reviews (
+    review_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    rating INT(11) NOT NULL,
+    comment TEXT NOT NULL,
+    recommend ENUM('yes', 'no') NOT NULL,
+    event_name VARCHAR(255) NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id INT(11) NOT NULL,
+    user_session VARCHAR(255) NULL,
+    user_ip VARCHAR(45) NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+
 
 -- Appointment table
 CREATE TABLE appointment (

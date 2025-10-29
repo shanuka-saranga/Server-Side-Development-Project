@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database connection
-require_once 'db_connection.php';
+require_once '../config/config.php';
 
 // Generate or get user session ID
 if (!isset($_SESSION['user_id'])) {
@@ -71,7 +71,7 @@ if (isset($_POST['update_review'])) {
         
         $update_sql = "UPDATE review SET name='$name', rating=$rating, comment='$comment', 
                       event_name='$event_name', recommend='$recommend' 
-                      WHERE id = $review_id AND user_id = '$user_id'";
+                      WHERE review_id = $review_id AND user_id = '$user_id'";
         
         if (mysqli_query($conn, $update_sql)) {
             $form_success = "Review updated successfully!";
