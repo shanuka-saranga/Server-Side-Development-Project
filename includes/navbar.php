@@ -34,11 +34,27 @@ $is_logged_in = !empty($_SESSION['user_id']);
         <ul class="navbar-menu">
             <li><a href="../index.php" class="<?= $current_page === 'index.php' ? 'active' : '' ?>">Home</a></li>
             <li><a href="../event/events.html">Events</a></li>
-            <li><a href="../Contactus/contact.html">Contact us</a></li>
-            <li><a href="../About Us/About Us.html">About us</a></li>
-            <li><a href="../Booking/booking.html">Booking</a></li>
+            <li><a href="../Public/Contactus.php">Contact us</a></li>
+            <li><a href="../Public/aboutus.php">About us</a></li>
+
+            <!-- Booking with Hover Dropdown -->
+            <li class="dropdown">
+                <a href="../Public/Booking.php"
+                    class="<?= in_array($current_page, ['Booking.php', 'appointment.php']) ? 'active' : '' ?>">
+                    Booking
+                </a>
+                <ul class="submenu">
+                    <li><a href="../Public/appointment.php"
+                            class="<?= $current_page === 'appointment.php' ? 'active' : '' ?>">Appointment</a></li>
+                    <!-- Add more sub-items here if needed -->
+                </ul>
+            </li>
+
             <li><a href="../services/Services.html">Our Service</a></li>
+            <li><a href="../services/Services.html">Reviews</a></li>
         </ul>
+        <!-- End Booking -->
+
 
         <!-- RIGHT CORNER: LOGIN / PROFILE -->
         <div class="navbar-auth">
