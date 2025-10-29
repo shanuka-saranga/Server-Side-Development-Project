@@ -1,19 +1,11 @@
+-- Drop database if it exists
+DROP DATABASE IF EXISTS festora_db;
 
-CREATE DATABASE IF NOT EXISTS FESTORA;
+-- Create database
+CREATE DATABASE festora_db;
+USE festora_db;
 
-
-USE FESTORA;
-
-
-
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-
-GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
-
-
-
-
+-- Users table
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -24,7 +16,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tharusha
+-- Organizer table
 CREATE TABLE organizer (
     organizer_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -32,7 +24,7 @@ CREATE TABLE organizer (
     phone VARCHAR(20)
 );
 
--- Samadi
+-- Event table
 CREATE TABLE event (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -45,7 +37,7 @@ CREATE TABLE event (
     FOREIGN KEY (organizer_id) REFERENCES organizer(organizer_id) ON DELETE SET NULL
 );
 
--- Isuru
+-- Booking table
 CREATE TABLE booking (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -53,11 +45,11 @@ CREATE TABLE booking (
     tickets INT DEFAULT 1,
     payment_status ENUM('pending','paid','cancelled') DEFAULT 'pending',
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
 
--- Imashi
+-- Payment table
 CREATE TABLE payment (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
@@ -68,18 +60,19 @@ CREATE TABLE payment (
     FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
 );
 
--- Banti
+-- Review table
 CREATE TABLE review (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
+    event_id INT NOT NULL,
     rating INT CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
 
--- Tharinda
+-- Appointment table
 CREATE TABLE appointment (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NULL,
@@ -89,10 +82,10 @@ CREATE TABLE appointment (
     contact CHAR(10),
     branch VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE SET NULL
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- Admin user
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
+GRANT ALL PRIVILEGES ON festora_db.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
