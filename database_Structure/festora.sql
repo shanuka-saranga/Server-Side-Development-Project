@@ -1,5 +1,4 @@
-<<<<<<< HEAD:database/festora.sql
-<<<<<<< HEAD
+
 CREATE DATABASE IF NOT EXISTS FESTORA;
 
 
@@ -14,28 +13,11 @@ FLUSH PRIVILEGES;
 
 
 
-CREATE TABLE users (
-=======
--- NOTICE : DONT change the oder of the tables, Dont change PK & FK.
-drop database if exists FESTORA;
-drop user if exists 'admin'@'localhost';
-CREATE DATABASE FESTORA;
-USE FESTORA;
-
--- Shanuka creates. Methum uses it
-CREATE TABLE user (
->>>>>>> 2b25757a0678747b303e36849e490d4b90680f92
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-=======
-CREATE DATABASE festora_db;
-USE festora_db;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
->>>>>>> shanuka:database_Structure/festora.sql
     email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
