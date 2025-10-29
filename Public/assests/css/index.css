@@ -13,22 +13,6 @@
 
 }
 
-@media (max-width: 900px) {
-    .slider-height {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .slider,
-    .text-area {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .text-area h1 {
-        font-size: 2rem;
-    }
-}
 
 
 .text-area {
@@ -125,13 +109,6 @@
     width: 30px;
     background-color: rgb(222, 207, 207);
 }
-
-@media screen and (max-width: 768px) {
-    .slider {
-        height: 400px;
-    }
-}
-
 
 
 

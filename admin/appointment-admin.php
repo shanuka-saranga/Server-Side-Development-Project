@@ -2,6 +2,21 @@
 // Database connection
 require_once "../config/config.php";
 
+// Delete appointment logic
+if (isset($_GET['delete_id'])) {
+    $delete_id = mysqli_real_escape_string($conn, $_GET['delete_id']);
+    $delete_sql = "DELETE FROM appointment WHERE appointment_id = '$delete_id'";
+    
+    if (mysqli_query($conn, $delete_sql)) {
+        $delete_message = "<script>alert('Appointment deleted successfully');</script>";
+        // Redirect to avoid resubmission
+        header("Location: appointment-admin.php?branch=" . ($_GET['branch'] ?? 'All'));
+        exit();
+    } else {
+        $delete_message = "<script>alert('Error deleting appointment: " . addslashes(mysqli_error($conn)) . "');</script>";
+    }
+}
+
 // Branch filter logic
 $branchFilter = "";
 if (isset($_GET['branch']) && $_GET['branch'] != "All") {
@@ -9,9 +24,14 @@ if (isset($_GET['branch']) && $_GET['branch'] != "All") {
     $branchFilter = "WHERE branch = '$branch'";
 }
 
-// Query appointments ordered by date
-$sql = "SELECT fname, reason, date, contact, branch FROM appointment $branchFilter ORDER BY date ASC";
+// Query all appointments with all columns
+$sql = "SELECT appointment_id, user_id, fname, reason, date, contact, branch, created_at FROM appointment $branchFilter ORDER BY date ASC";
 $result = mysqli_query($conn, $sql);
+
+// Check if query was successful
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +62,8 @@ $result = mysqli_query($conn, $sql);
 
     .container {
       margin: 40px auto;
-      width: 90%;
-      max-width: 1000px;
+      width: 95%;
+      max-width: 1200px;
       background: white;
       padding: 25px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -81,17 +101,20 @@ $result = mysqli_query($conn, $sql);
     table {
       border-collapse: collapse;
       width: 100%;
+      font-size: 14px;
     }
 
     th, td {
       border: 1px solid #ddd;
       text-align: left;
-      padding: 12px;
+      padding: 10px;
     }
 
     th {
       background-color: #ff7900;
       color: white;
+      position: sticky;
+      top: 0;
     }
 
     tr:nth-child(even) {
@@ -108,6 +131,41 @@ $result = mysqli_query($conn, $sql);
       font-style: italic;
       padding: 20px;
     }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+
+    .message {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
   </style>
 </head>
 <body>
@@ -116,6 +174,9 @@ $result = mysqli_query($conn, $sql);
 
   <div class="container">
     <h2>All Booked Appointments</h2>
+
+    <!-- Display delete message -->
+    <?php if (isset($delete_message)) echo "<div class='message'>$delete_message</div>"; ?>
 
     <!-- Filter Buttons -->
     <div class="filter-buttons">
@@ -130,20 +191,41 @@ $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         echo "<table>
                 <tr>
+                  <th>Appointment ID</th>
+                  <th>User ID</th>
                   <th>Full Name</th>
                   <th>Event Type</th>
                   <th>Date</th>
                   <th>Contact</th>
                   <th>Branch</th>
+                  <th>Created At</th>
+                  <th>Action</th>
                 </tr>";
 
         while ($row = mysqli_fetch_assoc($result)) {
+            // Format date for better display
+            $formatted_date = date('M j, Y', strtotime($row['date']));
+            $formatted_created = date('M j, Y g:i A', strtotime($row['created_at']));
+            
+            // Handle NULL user_id
+            $user_id = $row['user_id'] ?? 'Guest';
+            
             echo "<tr>
+                    <td>" . htmlspecialchars($row['appointment_id']) . "</td>
+                    <td>" . htmlspecialchars($user_id) . "</td>
                     <td>" . htmlspecialchars($row['fname']) . "</td>
                     <td>" . htmlspecialchars($row['reason']) . "</td>
-                    <td>" . htmlspecialchars($row['date']) . "</td>
+                    <td>" . htmlspecialchars($formatted_date) . "</td>
                     <td>" . htmlspecialchars($row['contact']) . "</td>
                     <td>" . htmlspecialchars($row['branch']) . "</td>
+                    <td>" . htmlspecialchars($formatted_created) . "</td>
+                    <td>
+                      <a href='appointment-admin.php?delete_id=" . $row['appointment_id'] . "&branch=" . ($_GET['branch'] ?? 'All') . "' 
+                         class='delete-btn' 
+                         onclick=\"return confirm('Are you sure you want to delete this appointment?')\">
+                         Delete
+                      </a>
+                    </td>
                   </tr>";
         }
 

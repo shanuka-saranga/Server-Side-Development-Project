@@ -1,6 +1,10 @@
 <?php
 session_start();
-require_once '../config/database.php';
+require_once '../config/config.php';
+
+$errors = [];
+$success = '';
+$error = '';
 
 // ============== SIGNUP LOGIC ==============
 if (isset($_POST['signup'])) {
@@ -8,9 +12,9 @@ if (isset($_POST['signup'])) {
     $last_name = trim($_POST['last_name']);
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
 
-    $errors = [];
+    // validation
     if (empty($first_name))
         $errors[] = "First name is required.";
     if (empty($last_name))
@@ -19,22 +23,27 @@ if (isset($_POST['signup'])) {
         $errors[] = "Valid email required.";
     if (empty($phone))
         $errors[] = "Phone number required.";
-    if (empty($_POST['password']))
+    if (empty($password))
         $errors[] = "Password required.";
 
     if (empty($errors)) {
-        try {
-            $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-            $stmt->execute([$email]);
-            if ($stmt->rowCount() > 0) {
-                $errors[] = "Email already registered.";
-            } else {
-                $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
-                $stmt->execute([$first_name, $last_name, $email, $phone, $password]);
+        // check if email exists
+        $check = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($check, "s", $email);
+        mysqli_stmt_execute($check);
+        mysqli_stmt_store_result($check);
+
+        if (mysqli_stmt_num_rows($check) > 0) {
+            $errors[] = "Email already registered.";
+        } else {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $insert = mysqli_prepare($conn, "INSERT INTO users (first_name, last_name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($insert, "sssss", $first_name, $last_name, $email, $phone, $hashed_password);
+            if (mysqli_stmt_execute($insert)) {
                 $success = "Account created! Please log in.";
+            } else {
+                $errors[] = "Something went wrong. Please try again.";
             }
-        } catch (Exception $e) {
-            $errors[] = "Error: " . $e->getMessage();
         }
     }
 }
@@ -47,9 +56,11 @@ if (isset($_POST['signin'])) {
     if (empty($email) || empty($password)) {
         $error = "Email and password required.";
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
+        $stmt = mysqli_prepare($conn, "SELECT id, first_name, last_name, password FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $user = mysqli_fetch_assoc($result);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
@@ -62,6 +73,7 @@ if (isset($_POST['signin'])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
