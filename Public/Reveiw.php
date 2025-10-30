@@ -38,8 +38,8 @@ if (isset($_POST['sub'])) {
             $form_error = "Please select a valid rating.";
         }
         else {
-            $sql = "INSERT INTO review (name, email, rating, comment, recommend, event_name, user_id, user_session, user_ip) 
-                    VALUES ('$name', '$email', $rating, '$comment', '$recommend', '$event_name', '$user_id', '$user_id', '$user_ip')";
+            $sql = "INSERT INTO review (name, email, rating, comment, recommend, event_name, user_id, user_ip) 
+                    VALUES ('$name', '$email', $rating, '$comment', '$recommend', '$event_name', '$user_id','$user_ip')";
             
             $QueryResult = mysqli_query($conn, $sql);
             
