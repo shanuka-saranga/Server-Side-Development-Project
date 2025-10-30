@@ -41,9 +41,15 @@ CREATE TABLE event (
 CREATE TABLE booking (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    event_id INT NOT NULL,
-    tickets INT DEFAULT 1,
-    payment_status ENUM('pending','paid','cancelled') DEFAULT 'pending',
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    event_type VARCHAR(50) NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    guest_count INT NOT NULL,
+    event_start DATETIME NOT NULL,
+    event_end DATETIME NOT NULL,
+    event_description TEXT,
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
