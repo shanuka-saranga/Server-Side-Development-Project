@@ -4,6 +4,7 @@ require_once "../config/config.php";
 // Initialize message variable
 $message = "";
 
+
 // Check if form is submitted
 if (isset($_POST['submit'])) {
     // Get form data
