@@ -1,10 +1,14 @@
 <?php
+
+session_start();
+
+
 // Backend/display_reviews.php - Display reviews in table format with delete
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database connection
-require_once '../config.php';
+require_once '../config/config.php';
 
 // Handle delete action
 if (isset($_GET['delete_id'])) {
