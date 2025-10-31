@@ -1,12 +1,12 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "festora";
+$host = "localhost";
+$user = "root";  // your XAMPP username
+$pass = "";      // usually empty
+$dbname = "festora_db"; // your database name
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect($host, $user, $pass, $dbname);
 
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    die("Database connection failed: " . mysqli_connect_error());
 }
 ?>
