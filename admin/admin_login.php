@@ -2,26 +2,38 @@
 session_start();
 include '../config/config.php';
 
-
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
+    // Prepare and execute query
     $stmt = $conn->prepare("SELECT * FROM admin WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($admin = $result->fetch_assoc()) {
-        if (password_verify($password, $admin['password'])) {
-            $_SESSION['admin_id'] = $admin['id'];
-            $_SESSION['admin_name'] = $admin['username'];
-            header("Location: dashboard.php");
-            exit;
+        // Check if password is hashed (starts with $2y$ for bcrypt)
+        if (substr($admin['password'], 0, 4) === '$2y$') {
+            if (password_verify($password, $admin['password'])) {
+                $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['admin_name'] = $admin['username'];
+                header("Location: dashboard.php");
+                exit;
+            }
+        } else {
+            // Plain text password check (not recommended in production)
+            if ($password === $admin['password']) {
+                $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['admin_name'] = $admin['username'];
+                header("Location: dashboard.php");
+                exit;
+            }
         }
     }
+
     $error = "Invalid username or password.";
 }
 ?>
@@ -33,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Festora</title>
-    <link rel="stylesheet" href="../Public/assets/css/allnav&footer.css">
     <style>
         body {
             font-family: "Poppins", sans-serif;
@@ -108,7 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form class="login-box" method="POST">
         <h2>Admin Login</h2>
         <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
         <input type="text" name="username" placeholder="Admin Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
