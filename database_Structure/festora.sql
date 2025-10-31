@@ -17,6 +17,8 @@ CREATE TABLE users (
 );
 
 
+
+
 CREATE TABLE admin (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
@@ -24,6 +26,7 @@ CREATE TABLE admin (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- INSERT INTO admin (username, password) VALUES ('admin', 'admin123');
 
 
 -- dont change admin and users table
