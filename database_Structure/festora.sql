@@ -78,6 +78,7 @@ CREATE TABLE reviews (
     event_name VARCHAR(255) NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user_id INT(11) NOT NULL,
+    user_session VARCHAR(255) NULL,
     user_ip VARCHAR(45) NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

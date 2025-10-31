@@ -26,7 +26,7 @@ if (isset($_POST['sub'])) {
         $comment = trim($_POST['comment']);
         $recommend = $_POST['recommend'];
         $event_name = isset($_POST['event_name']) ? trim($_POST['event_name']) : '';
-        $user_id = $_SESSION['user_id'];
+        $user_s_id = $_SESSION['user_id'];
         $user_ip = $_SERVER['REMOTE_ADDR'];
         
         // Validate email
@@ -38,8 +38,8 @@ if (isset($_POST['sub'])) {
             $form_error = "Please select a valid rating.";
         }
         else {
-            $sql = "INSERT INTO review (name, email, rating, comment, recommend, event_name, user_id, user_ip) 
-                    VALUES ('$name', '$email', $rating, '$comment', '$recommend', '$event_name', '$user_id','$user_ip')";
+            $sql = "INSERT INTO review (name, email, rating, comment, recommend, event_name, user_id, user_session, user_ip) 
+                    VALUES ('$name', '$email', $rating, '$comment', '$recommend', '$event_name', '$user_id', '$user_s_id', '$user_ip')";
             
             $QueryResult = mysqli_query($conn, $sql);
             
@@ -56,10 +56,10 @@ if (isset($_POST['sub'])) {
 // Handle review update
 if (isset($_POST['update_review'])) {
     $review_id = (int)$_POST['review_id'];
-    $user_id = $_SESSION['user_id'];
+    $user_s_id = $_SESSION['user_id'];
     
     // Verify the review belongs to the current user
-    $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
+    $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_s_id'";
     $check_result = mysqli_query($conn, $check_sql);
     
     if (mysqli_num_rows($check_result) > 0) {
@@ -71,7 +71,7 @@ if (isset($_POST['update_review'])) {
         
         $update_sql = "UPDATE review SET name='$name', rating=$rating, comment='$comment', 
                       event_name='$event_name', recommend='$recommend' 
-                      WHERE review_id = $review_id AND user_id = '$user_id'";
+                      WHERE review_id = $review_id AND user_id = '$user_s_id'";
         
         if (mysqli_query($conn, $update_sql)) {
             $form_success = "Review updated successfully!";
@@ -86,14 +86,14 @@ if (isset($_POST['update_review'])) {
 // Handle review deletion
 if (isset($_GET['delete_review'])) {
     $review_id = (int)$_GET['delete_review'];
-    $user_id = $_SESSION['user_id'];
+    $user_s_id = $_SESSION['user_id'];
     
     // Verify the review belongs to the current user
-    $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
+    $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_s_id'";
     $check_result = mysqli_query($conn, $check_sql);
     
     if (mysqli_num_rows($check_result) > 0) {
-        $delete_sql = "DELETE FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
+        $delete_sql = "DELETE FROM review WHERE review_id = $review_id AND user_id = '$user_s_id'";
         if (mysqli_query($conn, $delete_sql)) {
             $form_success = "Review deleted successfully!";
         } else {
@@ -113,10 +113,10 @@ $result = mysqli_query($conn, $sql);
 $NumRows = mysqli_num_rows($result);
 
 // Get current user's reviews for editing
-$user_id = $_SESSION['user_id'];
+$user_s_id = $_SESSION['user_id'];
 $user_reviews_sql = "SELECT review_id, name, rating, comment, event_name, recommend 
                      FROM review 
-                     WHERE user_id = '$user_id' 
+                     WHERE user_id = '$user_s_id' 
                      ORDER BY created_at DESC";
 $user_reviews_result = mysqli_query($conn, $user_reviews_sql);
 $user_reviews_count = mysqli_num_rows($user_reviews_result);
