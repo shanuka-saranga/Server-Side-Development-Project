@@ -238,7 +238,7 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
 
             </li>
 
-            <li><a href="Public/Review.php">Reviews</a></li>
+            <li><a href="Review.php">Reviews</a></li>
         </ul>
 
         <!-- RIGHT: AUTH SECTION -->
