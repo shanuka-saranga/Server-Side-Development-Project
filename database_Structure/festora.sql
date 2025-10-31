@@ -100,10 +100,5 @@ CREATE TABLE appointment (
 
 -- Admin user
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-<<<<<<< HEAD:database_Structure/festora.sql
 GRANT ALL PRIVILEGES ON festora_db.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
-=======
-GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
->>>>>>> Methum:database/festora.sql
