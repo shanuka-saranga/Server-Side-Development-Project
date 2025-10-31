@@ -44,7 +44,7 @@ if (isset($_POST['signup'])) {
                 // Auto login after signup (optional)
                 $_SESSION['user_id'] = mysqli_insert_id($conn);
                 $_SESSION['user_name'] = $first_name;
-                header("Location: ../index.php");
+                header("Location: ../Public/index.php");
                 exit;
             } else {
                 $errors[] = "Something went wrong. Please try again.";
@@ -70,7 +70,7 @@ if (isset($_POST['signin'])) {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['first_name'];
-            header("Location: ../index.php");
+            header("Location: ../Public/index.php");
             exit;
         } else {
             $error = "Invalid email or password.";
