@@ -24,7 +24,7 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
     <nav class="navbar-container">
         <!-- Logo -->
         <a href="../index.php" class="navbar-logo">
-            <img src="../Public/assets/images/LOGO.png" alt="Logo">
+            <img src="assests/index/LOGO.png" alt="Logo">
             Festora
         </a>
 
