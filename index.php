@@ -138,27 +138,10 @@ require_once 'includes/navbar.php';
         </div>
     </section>
 
+    <!-- Banner ribbon image -->
+    <?php require_once 'includes/header.php'; ?>
+
     <!-- =================================== COUNTER RIBBON =================================== -->
-    <section class="ribbon">
-        <div class="ribbon-text">
-            <div class="counter-container">
-                <div class="counter" data-target="320">0</div>
-                <p>Featured Events</p>
-            </div>
-            <div class="counter-container">
-                <div class="counter" data-target="356">0</div>
-                <p>Loyal Customers</p>
-            </div>
-            <div class="counter-container">
-                <div class="counter" data-target="694">0</div>
-                <p>Good Comments</p>
-            </div>
-            <div class="counter-container">
-                <div class="counter" data-target="367">0</div>
-                <p>Trophies Won</p>
-            </div>
-        </div>
-    </section>
 
     <!-- =================================== IMAGE + TEXT BOX =================================== -->
     <div class="container">
