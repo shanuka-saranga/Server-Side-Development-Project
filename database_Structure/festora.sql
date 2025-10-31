@@ -87,7 +87,6 @@ CREATE TABLE payment (
     FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
 );
 
-<<<<<<< HEAD
 -- Review table
 
 CREATE TABLE reviews (
@@ -103,19 +102,6 @@ CREATE TABLE reviews (
     user_session VARCHAR(255) NULL,
     user_ip VARCHAR(45) NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-=======
-
-
-
--- Banti
-CREATE TABLE review (
-    review_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    rating INT CHECK (rating BETWEEN 1 AND 5),
-    comment TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
->>>>>>> shanuka
 );
 
 
