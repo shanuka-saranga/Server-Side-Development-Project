@@ -2,6 +2,13 @@
 require_once '../config/config.php';
 require_once '../includes/navbar.php';
 
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
+ header("Location: login.php");
+    exit;
+}
+
+
+
 if (isset($_POST['submit'])) {
     $userName   = mysqli_real_escape_string($conn, $_POST['userName']);
     $userEmail  = mysqli_real_escape_string($conn, $_POST['userEmail']);
@@ -12,9 +19,8 @@ if (isset($_POST['submit'])) {
     $eventStart = mysqli_real_escape_string($conn, $_POST['event_start']);
     $eventEnd   = mysqli_real_escape_string($conn, $_POST['event_end']);
     $eventDesc  = mysqli_real_escape_string($conn, $_POST['eventDesc']);
-
-    $sql = "INSERT INTO bookings (full_name, email, phone, event_type, location, guest_count, event_start, event_end, event_description)
-            VALUES ('$userName', '$userEmail', '$userTel', '$eventType', '$location', '$guestCount', '$eventStart', '$eventEnd', '$eventDesc')";
+    $sql = "INSERT INTO booking (user_id,full_name, email, phone, event_type, location, guest_count, event_start, event_end, event_description)
+            VALUES ('$user_id','$userName', '$userEmail', '$userTel', '$eventType', '$location', '$guestCount', '$eventStart', '$eventEnd', '$eventDesc')";
 
     if ($conn->query($sql) === TRUE) {
         $success = true;
@@ -32,7 +38,6 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../CommonCSS/allnav&footer.css">
     <link rel="stylesheet" href="../Public/assests/css/Booking.css">
     <link rel="icon" type="image/png" href="../assests/LOGO.png">
-   <script src="./js/Booking.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Book Now</title>
 </head>
@@ -121,7 +126,7 @@ if (isset($_POST['submit'])) {
     <?php endif; ?>
         </div>
     </section>
-
+<script src="js/Booking.js"></script>
 </body>
 </html>
 
