@@ -5,68 +5,143 @@ $view = $_GET['view'] ?? 'dashboard';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FESTORA Admin Dashboard</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
-        .container { width: 90%; margin: 20px auto; }
-
-        header { 
-            background: #333; color: #fff; padding: 20px; 
-            text-align: center; border-radius: 8px 8px 0 0; 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-        header h1 { margin: 0; font-size: 28px; }
 
-        .content { 
-            background: #fff; padding: 30px; 
-            border-radius: 0 0 8px 8px; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .container {
+            width: 90%;
+            margin: 20px auto;
         }
-        .content h2 { margin-top: 0; }
-        .content p { font-size: 1.1em; }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            margin-top: 0;
+        }
+
+        .content p {
+            font-size: 1.1em;
+        }
 
         /* Dashboard Buttons */
         .dashboard-buttons {
-            display: flex; flex-wrap: wrap; gap: 20px;
-            margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
             justify-content: center;
         }
+
         .dash-btn {
-            flex-basis: 200px; flex-grow: 1; height: 120px;
-            display: flex; align-items: center; justify-content: center;
-            text-decoration: none; color: white; font-size: 1.2em;
-            font-weight: bold; text-align: center; border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s ease; cursor: pointer;
+            flex-basis: 200px;
+            flex-grow: 1;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
+
         .dash-btn:hover {
-            transform: translateY(-5px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         /* Button colors */
-        .btn-users { background-color: #42A5F5; }
-        .btn-events { background-color: #66BB6A; }
-        .btn-organizers { background-color: #FFA726; }
-        .btn-bookings { background-color: #EF5350; }
-        .btn-payments { background-color: #AB47BC; }
-        .btn-reviews { background-color: #FF7043; }
-        .btn-appointments { background-color: #78909C; }
-        .btn-add-event { background-color: #26A69A; }
+        .btn-users {
+            background-color: #42A5F5;
+        }
+
+        .btn-events {
+            background-color: #66BB6A;
+        }
+
+        .btn-organizers {
+            background-color: #FFA726;
+        }
+
+        .btn-bookings {
+            background-color: #EF5350;
+        }
+
+        .btn-payments {
+            background-color: #AB47BC;
+        }
+
+        .btn-reviews {
+            background-color: #FF7043;
+        }
+
+        .btn-appointments {
+            background-color: #78909C;
+        }
+
+        .btn-add-event {
+            background-color: #26A69A;
+        }
 
         /* Logout Button */
         .logout-container {
-            margin-top: 40px; padding-top: 20px;
-            border-top: 1px solid #eee; text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
         }
+
         .btn-danger {
-            display: inline-block; padding: 12px 20px; font-size: 16px;
-            font-weight: bold; color: #fff; background-color: #f44336;
-            border: none; border-radius: 5px; text-decoration: none; cursor: pointer;
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #f44336;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
         }
-        .btn-danger:hover { background-color: #da190b; }
+
+        .btn-danger:hover {
+            background-color: #da190b;
+        }
 
         /* Footer */
         footer {
@@ -77,6 +152,7 @@ $view = $_GET['view'] ?? 'dashboard';
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -100,7 +176,7 @@ $view = $_GET['view'] ?? 'dashboard';
             </div>
 
             <div class="logout-container">
-                <a href="logout.php" class="btn-danger">Log Out</a>
+                <a href="../index.php" class="btn-danger">Log Out</a>
             </div>
         </div>
 
@@ -110,4 +186,5 @@ $view = $_GET['view'] ?? 'dashboard';
     </div>
 
 </body>
+
 </html>
