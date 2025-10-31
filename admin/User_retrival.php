@@ -1,6 +1,6 @@
 <?php
 // ------------------- USER MANAGEMENT PAGE -------------------
-
+session_start();
 // --- INCLUDE DATABASE CONNECTION ---
 require_once '../config/config.php'; // Adjust path if needed
 
@@ -21,28 +21,30 @@ if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
 }
 
 // --- FETCH ALL USERS ---
-$sql = "SELECT user_id, name, email, phone, role, created_at FROM user";
+$sql = "SELECT id, first_name, last_name, email, phone, created_at FROM users ORDER BY created_at DESC";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Manage Users - FESTORA</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #f4f4f4; 
-            margin: 0; padding: 0;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
 
-        .container { 
-            width: 90%; 
-            margin: 30px auto; 
-            background: #fff; 
-            padding: 20px 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -58,6 +60,7 @@ $result = $conn->query($sql);
             font-weight: bold;
             color: #333;
         }
+
         .back-link:hover {
             color: #4CAF50;
         }
@@ -69,7 +72,8 @@ $result = $conn->query($sql);
             background: #fff;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 15px;
             border: 1px solid #ddd;
             text-align: left;
@@ -80,8 +84,13 @@ $result = $conn->query($sql);
             color: white;
         }
 
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        tr:hover { background-color: #f1f1f1; }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
 
         /* Delete button style */
         .btn-delete {
@@ -93,26 +102,36 @@ $result = $conn->query($sql);
             font-size: 0.9em;
             font-weight: bold;
         }
+
         .btn-delete:hover {
             background-color: #da190b;
         }
 
         /* Responsive table */
         @media (max-width: 768px) {
-            table, thead, tbody, th, td, tr {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
                 display: block;
             }
+
             th {
                 position: absolute;
                 top: -9999px;
                 left: -9999px;
             }
+
             td {
                 border: none;
                 position: relative;
                 padding-left: 50%;
                 text-align: right;
             }
+
             td:before {
                 position: absolute;
                 left: 10px;
@@ -122,16 +141,38 @@ $result = $conn->query($sql);
                 font-weight: bold;
                 text-align: left;
             }
-            td:nth-of-type(1):before { content: "User ID"; }
-            td:nth-of-type(2):before { content: "Name"; }
-            td:nth-of-type(3):before { content: "Email"; }
-            td:nth-of-type(4):before { content: "Phone"; }
-            td:nth-of-type(5):before { content: "Role"; }
-            td:nth-of-type(6):before { content: "Date Joined"; }
-            td:nth-of-type(7):before { content: "Actions"; }
+
+            td:nth-of-type(1):before {
+                content: "User ID";
+            }
+
+            td:nth-of-type(2):before {
+                content: "Name";
+            }
+
+            td:nth-of-type(3):before {
+                content: "Email";
+            }
+
+            td:nth-of-type(4):before {
+                content: "Phone";
+            }
+
+            td:nth-of-type(5):before {
+                content: "Role";
+            }
+
+            td:nth-of-type(6):before {
+                content: "Date Joined";
+            }
+
+            td:nth-of-type(7):before {
+                content: "Actions";
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <a href="admin.php" class="back-link">&larr; Back to Dashboard</a>
@@ -178,4 +219,5 @@ $result = $conn->query($sql);
         </table>
     </div>
 </body>
+
 </html>

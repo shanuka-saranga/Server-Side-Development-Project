@@ -8,13 +8,31 @@ USE festora_db;
 -- Users table
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- INSERT INTO admin (username, password) VALUES ('admin', 'admin123');
+
+
+-- dont change admin and users table
+
+
+
 
 -- Organizer table
 CREATE TABLE organizer (
@@ -23,6 +41,7 @@ CREATE TABLE organizer (
     email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(20)
 );
+
 
 -- Event table
 CREATE TABLE event (
@@ -35,6 +54,7 @@ CREATE TABLE event (
     organizer_id INT NULL,
     FOREIGN KEY (organizer_id) REFERENCES organizer(organizer_id) ON DELETE SET NULL
 );
+
 
 -- Booking table
 CREATE TABLE booking (
@@ -55,6 +75,7 @@ CREATE TABLE booking (
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
 
+
 -- Payment table
 CREATE TABLE payment (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,6 +87,7 @@ CREATE TABLE payment (
     FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
 -- Review table
 
 CREATE TABLE reviews (
@@ -81,6 +103,19 @@ CREATE TABLE reviews (
     user_session VARCHAR(255) NULL,
     user_ip VARCHAR(45) NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+=======
+
+
+
+-- Banti
+CREATE TABLE review (
+    review_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+>>>>>>> shanuka
 );
 
 
@@ -98,12 +133,4 @@ CREATE TABLE appointment (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- Admin user
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-<<<<<<< HEAD:database_Structure/festora.sql
-GRANT ALL PRIVILEGES ON festora_db.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
-=======
-GRANT ALL PRIVILEGES ON FESTORA.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
->>>>>>> Methum:database/festora.sql
+

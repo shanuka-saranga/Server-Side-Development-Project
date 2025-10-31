@@ -30,10 +30,10 @@ require_once 'includes/navbar.php';
         <div class="slider">
             <div class="list">
                 <div class="item"><img src="assests/index/1.jpg" alt="Slide 1"></div>
-                <div class="item"><img src="assests/index/1.jpg" alt="Slide 2"></div>
-                <div class="item"><img src="assests/index/1.jpg" alt="Slide 3"></div>
-                <div class="item"><img src="assets/images/wedding-couple-dancing.jpg" alt="Wedding"></div>
-                <div class="item"><img src="assets/images/newlyweds-their-first-dance.jpg" alt="Dance"></div>
+                <div class="item"><img src="assests/index/slider2.jpg" alt="Slide 2"></div>
+                <div class="item"><img src="assests/index/slider3.jpg" alt="Slide 3"></div>
+                <div class="item"><img src="assests/index/wedding-couple-dancing.jpg" alt="Wedding"></div>
+                <div class="item"><img src="assests/index/newlyweds-their-first-dance.jpg" alt="Dance"></div>
             </div>
             <ul class="dots">
                 <li class="active"></li>
@@ -53,7 +53,7 @@ require_once 'includes/navbar.php';
     <!-- =================================== WELCOME =================================== -->
     <section>
         <div class="welcome-text">
-            <img src="assets/images/midleimg.png" alt="Welcome">
+            <img src="assests/index/midleimg.png" alt="Welcome">
             <h1>Welcome to <span id="text-primary">Festora</span></h1>
             <p>At Festora,<br> we are dedicated to making your event unforgettable. <br> Our team of experienced event
                 planners
@@ -67,7 +67,7 @@ require_once 'includes/navbar.php';
         <div class="explain">
             <div class="service-explain">
                 <div class="title01">
-                    <img src="assets/images/icon2.png" alt="Icon">
+                    <img src="assests/index/icon2.png" alt="Icon">
                     <h1>Great Service</h1>
                 </div>
                 <p>Exceptional event services with seamless planning and unforgettable experiences tailored to your
@@ -77,7 +77,7 @@ require_once 'includes/navbar.php';
 
             <div class="service-explain">
                 <div class="title01">
-                    <img src="assets/images/icon3.png" alt="Icon">
+                    <img src="assests/index/icon3.png" alt="Icon">
                     <h1>Great People</h1>
                 </div>
                 <p>Great people, exceptional service—bringing your events to life with passion and precision!</p>
@@ -86,7 +86,7 @@ require_once 'includes/navbar.php';
 
             <div class="service-explain">
                 <div class="title01">
-                    <img src="assets/images/icon1.png" alt="Icon">
+                    <img src="assests/index/icon1.png" alt="Icon">
                     <h1>Great Ideas</h1>
                 </div>
                 <p>Great ideas, flawless execution—turning your vision into unforgettable events!</p>
@@ -106,14 +106,14 @@ require_once 'includes/navbar.php';
 
         <div class="service-containner">
             <div class="service">
-                <div class="service-img"><img src="assets/images/eventimg1.jpg" alt="Wedding"></div>
+                <div class="service-img"><img src="assests/index/eventimg1.jpg" alt="Wedding"></div>
                 <div class="service-text">
                     <h1>Wedding</h1>
                     <p>Our team of experienced wedding planners will work with you to create a custom wedding...</p>
                 </div>
             </div>
             <div class="service">
-                <div class="service-img"><img src="assets/images/eventimg2.jpg" alt="Seminar"></div>
+                <div class="service-img"><img src="assests/index/eventimg2.jpg" alt="Seminar"></div>
                 <div class="service-text">
                     <h1>Corporate Seminars</h1>
                     <p>Our team of experienced event planners will work with you to create a custom corporate event...
@@ -121,7 +121,7 @@ require_once 'includes/navbar.php';
                 </div>
             </div>
             <div class="service">
-                <div class="service-img"><img src="assets/images/eventimg3.jpg" alt="Birthday"></div>
+                <div class="service-img"><img src="assests/index/eventimg3.jpg" alt="Birthday"></div>
                 <div class="service-text">
                     <h1>Birthday</h1>
                     <p>Our team of experienced event planners will work with you to create a custom birthday party...
@@ -129,7 +129,7 @@ require_once 'includes/navbar.php';
                 </div>
             </div>
             <div class="service">
-                <div class="service-img"><img src="assets/images/eventimg4.jpg" alt="Social"></div>
+                <div class="service-img"><img src="assests/index/eventimg4.jpg" alt="Social"></div>
                 <div class="service-text">
                     <h1>Social Events</h1>
                     <p>Our team of experienced event planners will work with you to create a custom social event...</p>
@@ -138,52 +138,35 @@ require_once 'includes/navbar.php';
         </div>
     </section>
 
+    <!-- Banner ribbon image -->
+    <?php require_once 'includes/header.php'; ?>
+
     <!-- =================================== COUNTER RIBBON =================================== -->
-    <section class="ribbon">
-        <div class="ribbon-text">
-            <div class="counter-container">
-                <div class="counter" data-target="320">0</div>
-                <p>Featured Events</p>
-            </div>
-            <div class="counter-container">
-                <div class="counter" data-target="356">0</div>
-                <p>Loyal Customers</p>
-            </div>
-            <div class="counter-container">
-                <div class="counter" data-target="694">0</div>
-                <p>Good Comments</p>
-            </div>
-            <div class="counter-container">
-                <div class="counter" data-target="367">0</div>
-                <p>Trophies Won</p>
-            </div>
-        </div>
-    </section>
 
     <!-- =================================== IMAGE + TEXT BOX =================================== -->
     <div class="container">
         <div class="image-wrapper">
-            <img src="assets/images/eventimg1.jpg" class="image1" alt="Event 1">
-            <img src="assets/images/eventimg4.jpg" class="image2" alt="Event 2">
+            <img src="assests/index/eventimg1.jpg" class="image1" alt="Event 1">
+            <img src="assests/index/eventimg4.jpg" class="image2" alt="Event 2">
         </div>
         <div class="text-box">
             <h2>Festora – Events That Last</h2>
             <p>We bring your guests closer to you and help you create relationships that last!</p>
             <div class="ptitiles">
                 <div class="ptitile1">
-                    <img src="assets/images/icon1.png" alt="Icon">
+                    <img src="assests/index/icon1.png" alt="Icon">
                     <p id="ptitle1">Event Planning & Coordination</p>
                 </div>
                 <div class="ptitile1">
-                    <img src="assets/images/icon1.png" alt="Icon">
+                    <img src="assests/index/icon1.png" alt="Icon">
                     <p id="ptitle1">Venue Selection & Decoration</p>
                 </div>
                 <div class="ptitile1">
-                    <img src="assets/images/icon1.png" alt="Icon">
+                    <img src="assests/index/icon1.png" alt="Icon">
                     <p id="ptitle1">Entertainment & Music</p>
                 </div>
                 <div class="ptitile1">
-                    <img src="assets/images/icon1.png" alt="Icon">
+                    <img src="assests/index/icon1.png" alt="Icon">
                     <p id="ptitle1">Great Transport Service</p>
                 </div>
             </div>
