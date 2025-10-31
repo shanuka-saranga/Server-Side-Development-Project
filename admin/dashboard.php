@@ -176,7 +176,7 @@ $view = $_GET['view'] ?? 'dashboard';
             </div>
 
             <div class="logout-container">
-                <a href="../index.php" class="btn-danger">Log Out</a>
+                <a href="../Public/index.php" class="btn-danger">Log Out</a>
             </div>
         </div>
 

@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="username" placeholder="Admin Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
-        <a href="../index.php" class="back-home">← Back to Home</a>
+        <a href="../Public/index.php" class="back-home">← Back to Home</a>
     </form>
 </body>
 
