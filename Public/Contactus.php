@@ -63,9 +63,6 @@ if (isset($_SESSION['message'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Festora</title>
-    <link rel="stylesheet" href="contact.css">
-    <link rel="icon" type="image/png" href="../assests/LOGO.png">
-    <link rel="stylesheet" href="Public/assests/css/contactus.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .message {
@@ -173,7 +170,7 @@ if (isset($_SESSION['message'])) {
     </div>
 
     <!-- FOOTER INCLUDED -->
-    <?php require_once 'includes/footer.php'; ?>
+    <?php require_once '../includes/footer.php'; ?>
 
 </body>
 

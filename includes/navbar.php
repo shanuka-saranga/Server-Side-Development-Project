@@ -211,34 +211,34 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
     <nav class="navbar-container">
         <!-- Logo -->
         <a href="../index.php" class="navbar-logo">
-            <img src="assests/index/LOGO.png" alt="Logo">
+            <img src="../assests/index/LOGO.png" alt="Logo">
             Festora
         </a>
 
         <!-- Menu -->
         <ul class="navbar-menu">
-            <li><a href="../index.php" class="<?= $current_page === 'index.php' ? 'active' : '' ?>">Home</a></li>
-            <li><a href="Public/events.php">Events</a></li>
-            <li><a href="Public/Contactus.php">Contact Us</a></li>
+            <li><a href="../Public/index.php" class="<?= $current_page === 'index.php' ? 'active' : '' ?>">Home</a></li>
+            <li><a href="../Public/events.php">Events</a></li>
+            <li><a href="../Public/Contactus.php">Contact Us</a></li>
             <li><a href="../Public/aboutus.php">About Us</a></li>
 
             <!-- Booking Dropdown -->
             <li class="dropdown">
-                <a href="Public/Booking.php"
+                <a href="../Public/Booking.php"
                     class="<?= in_array($current_page, ['Booking.php', 'appointment.php']) ? 'active' : '' ?>">
                     Booking
                 </a>
                 <ul class="submenu">
-                    <li><a href="Public/appointment.php"
+                    <li><a href="../Public/appointment.php"
                             class="<?= $current_page === 'appointment.php' ? 'active' : '' ?>">Appointment</a></li>
 
-                    <li><a href="Public/Payment.php"
+                    <li><a href="../Public/Payment.php"
                             class="<?= $current_page === 'Payment.php' ? 'active' : '' ?>">Payment</a></li>
                 </ul>
 
             </li>
 
-            <li><a href="Public/Reveiw.php">Reviews</a></li>
+            <li><a href="../Public/Reveiw.php">Reviews</a></li>
         </ul>
 
         <!-- RIGHT: AUTH SECTION -->
@@ -247,8 +247,8 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
             <!-- NOT LOGGED IN -->
             <?php if (!$is_logged_in && !$is_admin_logged_in): ?>
                 <div class="auth-buttons">
-                    <a href="Public/login.php" class="btn-auth">User Login</a>
-                    <a href="admin/admin_login.php" class="btn-auth signup">Admin Login</a>
+                    <a href="../Public/login.php" class="btn-auth">User Login</a>
+                    <a href="../admin/admin_login.php" class="btn-auth signup">Admin Login</a>
                 </div>
             <?php endif; ?>
 
@@ -259,8 +259,8 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
                         <img src="../Public/assets/images/default-avatar.png" alt="User">
                         <span>Hi, <?= htmlspecialchars($_SESSION['user_name'] ?? 'User') ?></span>
                     </div>
-                    <a href="Public/profile.php" class="btn-auth">Profile</a>
-                    <a href="Public/logout.php" class="btn-auth signup">Logout</a>
+                    <a href="../Public/profile.php" class="btn-auth">Profile</a>
+                    <a href="../Public/logout.php" class="btn-auth signup">Logout</a>
                 </div>
             <?php endif; ?>
 
@@ -271,8 +271,8 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
                         <img src="../Public/assets/images/admin-avatar.png" alt="Admin">
                         <span>Admin</span>
                     </div>
-                    <a href="admin/dashboard.php" class="btn-auth">Dashboard</a>
-                    <a href="Public/logout.php" class="btn-auth signup">Logout</a>
+                    <a href="../admin/dashboard.php" class="btn-auth">Dashboard</a>
+                    <a href="../Public/logout.php" class="btn-auth signup">Logout</a>
                 </div>
             <?php endif; ?>
 

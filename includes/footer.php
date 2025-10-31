@@ -227,8 +227,8 @@
 
             <!-- About Festora -->
             <div class="footer-about">
-                <a href="../index.php" class="footer-logo">
-                    <img src="assests/index/LOGO.png" alt="Festora Logo">
+                <a href="../Public/index.php" class="footer-logo">
+                    <img src="../assests/index/LOGO.png" alt="Festora Logo">
                     Festora
                 </a>
                 <p>
@@ -247,7 +247,7 @@
             <div>
                 <h3 class="footer-title">Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="../index.php"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="../Public/index.php"><i class="fas fa-chevron-right"></i> Home</a></li>
                     <li><a href="../event/events.html"><i class="fas fa-chevron-right"></i> Events</a></li>
                     <li><a href="../Booking/booking.html"><i class="fas fa-chevron-right"></i> Book Now</a></li>
                     <li><a href="../Contactus/contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
