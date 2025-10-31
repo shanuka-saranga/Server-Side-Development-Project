@@ -368,7 +368,7 @@
 .ribbon {
     height: 200px;
     width: auto;
-    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url(assests/ribbonimg.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url(../assests/index/ribbonimg.jpg);
     background-size: cover;
 }
 

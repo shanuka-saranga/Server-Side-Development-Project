@@ -104,6 +104,8 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 =======
 
+
+
 -- Banti
 CREATE TABLE review (
     review_id INT AUTO_INCREMENT PRIMARY KEY,

@@ -228,7 +228,7 @@
             <!-- About Festora -->
             <div class="footer-about">
                 <a href="../index.php" class="footer-logo">
-                    <img src="../Public/assets/images/LOGO.png" alt="Festora Logo">
+                    <img src="assests/index/LOGO.png" alt="Festora Logo">
                     Festora
                 </a>
                 <p>
@@ -236,7 +236,7 @@
                     From weddings to corporate galas, your vision is our mission.
                 </p>
                 <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="www.facebook.com" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
