@@ -5,6 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $current_page = basename($_SERVER['SCRIPT_NAME']);
 $is_logged_in = !empty($_SESSION['user_id']);
+$is_admin_logged_in = !empty($_SESSION['admin_id']);
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +17,6 @@ $is_logged_in = !empty($_SESSION['user_id']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../Public/assets/css/allnav&footer.css">
     <link rel="stylesheet" href="Public/assests/css/navbar.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -33,48 +31,67 @@ $is_logged_in = !empty($_SESSION['user_id']);
         <!-- Menu -->
         <ul class="navbar-menu">
             <li><a href="../index.php" class="<?= $current_page === 'index.php' ? 'active' : '' ?>">Home</a></li>
-            <li><a href="../event/events.html">Events</a></li>
-            <li><a href="../Public/Contactus.php">Contact us</a></li>
-            <li><a href="../Public/aboutus.php">About us</a></li>
+            <li><a href="Public/events.php">Events</a></li>
+            <li><a href="Public/Contactus.php">Contact Us</a></li>
+            <li><a href="../Public/aboutus.php">About Us</a></li>
 
-            <!-- Booking with Hover Dropdown -->
+            <!-- Booking Dropdown -->
             <li class="dropdown">
-                <a href="../Public/Booking.php"
+                <a href="Public/Booking.php"
                     class="<?= in_array($current_page, ['Booking.php', 'appointment.php']) ? 'active' : '' ?>">
                     Booking
                 </a>
                 <ul class="submenu">
-                    <li><a href="../Public/appointment.php"
+                    <li><a href="Public/appointment.php"
                             class="<?= $current_page === 'appointment.php' ? 'active' : '' ?>">Appointment</a></li>
-                    <!-- Add more sub-items here if needed -->
+
+                    <li><a href="Public/Payment.php"
+                            class="<?= $current_page === 'Payment.php' ? 'active' : '' ?>">Payment</a></li>
                 </ul>
+
             </li>
 
-            <li><a href="../services/Services.html">Our Service</a></li>
-            <li><a href="../services/Services.html">Reviews</a></li>
+            <li><a href="Public/Reveiw.php">Reviews</a></li>
         </ul>
-        <!-- End Booking -->
 
-
-        <!-- RIGHT CORNER: LOGIN / PROFILE -->
+        <!-- RIGHT: AUTH SECTION -->
         <div class="navbar-auth">
 
-            <!-- NOT LOGGED IN: Show Login + Sign Up -->
-            <div class="auth-buttons" style="display:<?= $is_logged_in ? 'none' : 'flex' ?>;">
-                <a href="Public/login.php" class="btn-auth">Login</a>
-                <a href="Public/login.php" class="btn-auth signup">Sign Up</a>
-            </div>
-
-            <!-- LOGGED IN: Show Profile + Logout -->
-            <div class="user-section" style="display:<?= $is_logged_in ? 'flex' : 'none' ?>;">
-                <div class="user-profile">
-                    <!-- Optional: Add avatar -->
-                    <img src="../Public/assets/images/default-avatar.png" alt="User">
-                    <span>Hi, <?= htmlspecialchars($_SESSION['user_name'] ?? '') ?></span>
+            <!-- NOT LOGGED IN -->
+            <?php if (!$is_logged_in && !$is_admin_logged_in): ?>
+                <div class="auth-buttons">
+                    <a href="Public/login.php" class="btn-auth">User Login</a>
+                    <a href="admin/admin_login.php" class="btn-auth signup">Admin Login</a>
                 </div>
-                <a href="Public/profile.php" class="btn-auth">Profile</a>
-                <a href="Public/logout.php" class="btn-auth signup">Logout</a>
-            </div>
+            <?php endif; ?>
+
+            <!-- USER LOGGED IN -->
+            <?php if ($is_logged_in): ?>
+                <div class="navbar-auth">
+                    <div class="user-profile">
+                        <img src="../Public/assets/images/default-avatar.png" alt="User">
+                        <span>Hi, <?= htmlspecialchars($_SESSION['user_name'] ?? 'User') ?></span>
+                    </div>
+                    <a href="Public/profile.php" class="btn-auth">Profile</a>
+                    <a href="Public/logout.php" class="btn-auth signup">Logout</a>
+                </div>
+            <?php endif; ?>
+
+            <!-- ADMIN LOGGED IN -->
+            <?php if ($is_admin_logged_in): ?>
+                <div class="navbar-auth">
+                    <div class="user-profile">
+                        <img src="../Public/assets/images/admin-avatar.png" alt="Admin">
+                        <span>Admin</span>
+                    </div>
+                    <a href="admin/dashboard.php" class="btn-auth">Dashboard</a>
+                    <a href="Public/logout.php" class="btn-auth signup">Logout</a>
+                </div>
+            <?php endif; ?>
 
         </div>
     </nav>
+
+</body>
+
+</html>

@@ -65,7 +65,7 @@ body {
 /* AUTH BUTTONS */
 .navbar-auth {
     display: flex;
-    gap: 50px;
+    gap: 10px;
     align-items: center;
 }
 
@@ -78,7 +78,7 @@ body {
     font-size: 14px;
     text-decoration: none;
     transition: background 0.3s;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .btn-auth:hover {
