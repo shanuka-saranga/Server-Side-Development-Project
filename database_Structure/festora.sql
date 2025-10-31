@@ -33,7 +33,6 @@ CREATE TABLE event (
     start_date DATETIME,
     end_date DATETIME,
     organizer_id INT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (organizer_id) REFERENCES organizer(organizer_id) ON DELETE SET NULL
 );
 
