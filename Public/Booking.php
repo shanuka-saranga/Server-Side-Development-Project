@@ -44,12 +44,6 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <div class="pageheader">
-        <div class="pageheader-container">
-            <h1 id="headid">Booking</h1>
-            <p>Sri Lankan Luxury Destination Surprise Romantic Events Planner</p>
-        </div>
-    </div>
 
     <section>
         <div class="container">

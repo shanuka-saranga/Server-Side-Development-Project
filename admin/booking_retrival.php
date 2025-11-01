@@ -62,23 +62,29 @@ if (!$result) {
     <link rel="stylesheet" href="../CommonCSS/allnav&footer.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-         
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 1300px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { border-bottom: 2px solid #3e64ff; padding-bottom: 10px; margin-bottom: 20px; color: #3e64ff; }
-        .booking-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .booking-table th, .booking-table td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 14px; }
-        .booking-table th { background-color: #3e64ff; color: white; }
-        .booking-table tr:nth-child(even) { background-color: #f9f9f9; }
-        .booking-table tr:hover { background-color: #f1f1f1; }
-        .delete-section { margin-top: 30px; padding: 20px; background-color: #ffeaea; border: 1px solid #ff0000; border-radius: 5px; }
-        .delete-section input[type="number"] { padding: 8px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .delete-section button { background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s; }
-        .delete-section button:hover { background-color: #c82333; }
-        .message { padding: 10px; margin-bottom: 15px; border-radius: 5px; font-weight: bold; }
-        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    </style>
+    
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+    .container { max-width: 1300px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    
+    
+    h2 { border-bottom: 2px solid #dc3545; padding-bottom: 10px; margin-bottom: 20px; color: #dc3545; }
+    
+    .booking-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .booking-table th, .booking-table td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 14px; }
+    
+    
+    .booking-table th { background-color: #dc3545; color: white; }
+    
+    .booking-table tr:nth-child(even) { background-color: #f9f9f9; }
+    .booking-table tr:hover { background-color: #f1f1f1; }
+    .delete-section { margin-top: 30px; padding: 20px; background-color: #ffeaea; border: 1px solid #ff0000; border-radius: 5px; }
+    .delete-section input[type="number"] { padding: 8px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    .delete-section button { background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s; }
+    .delete-section button:hover { background-color: #c82333; }
+    .message { padding: 10px; margin-bottom: 15px; border-radius: 5px; font-weight: bold; }
+    .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+</style>
 </head>
 <body>
 
@@ -89,7 +95,7 @@ if (!$result) {
             </div>
         <?php endif; ?>
 
-        <h2>All Event Bookings Management 📊</h2>
+       <center> <h2>All Event Bookings Management 📊</h2><center>
 
         <?php if ($result && $result->num_rows > 0): ?>
             <table class="booking-table">
