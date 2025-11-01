@@ -259,8 +259,8 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
                         <img src="../Public/assets/images/default-avatar.png" alt="User">
                         <span>Hi, <?= htmlspecialchars($_SESSION['user_name'] ?? 'User') ?></span>
                     </div>
-                    <a href="Public/profile.php" class="btn-auth">Profile</a>
-                    <a href="Public/logout.php" class="btn-auth signup">Logout</a>
+                    <a href="profile.php" class="btn-auth">Profile</a>
+                    <a href="logout.php" class="btn-auth signup">Logout</a>
                 </div>
             <?php endif; ?>
 

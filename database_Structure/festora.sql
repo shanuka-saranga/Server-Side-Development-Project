@@ -109,14 +109,11 @@ CREATE TABLE reviews (
 -- Appointment table
 CREATE TABLE appointment (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NULL,
     fname VARCHAR(255),
     reason VARCHAR(100),
     date DATE,
     contact CHAR(10),
     branch VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-);
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
 
