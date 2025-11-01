@@ -4,7 +4,7 @@ require_once '../config/config.php';
 require_once '../includes/navbar.php';
 
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
-    header("Location: ../Public/login.php");
+    header("Location: Public/login.php");
     exit;
 }
 

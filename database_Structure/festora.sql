@@ -35,25 +35,16 @@ CREATE TABLE admin (
 
 
 -- Organizer table
-CREATE TABLE organizer (
+CREATE TABLE team_selections (
     organizer_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(20)
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    coordinator VARCHAR(100) DEFAULT NULL,
+    creative VARCHAR(255) DEFAULT NULL,
+    technical VARCHAR(255) DEFAULT NULL
 );
 
-
--- Event table
-CREATE TABLE event (
-    event_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    location VARCHAR(255),
-    start_date DATETIME,
-    end_date DATETIME,
-    organizer_id INT NULL,
-    FOREIGN KEY (organizer_id) REFERENCES organizer(organizer_id) ON DELETE SET NULL
-);
 
 
 -- Booking table
@@ -77,11 +68,13 @@ CREATE TABLE booking (
 -- Payment table
 CREATE TABLE payment (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    amount DECIMAL(10,2) NOT NULL,
-    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    payment_method ENUM('card','paypal','other') DEFAULT 'card',
-    status ENUM('success','failed','pending') DEFAULT 'pending',
+    booking_id INT AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE NOT NULL,
+    status ENUM('success', 'failed', 'pending') DEFAULT 'pending',
+    note VARCHAR(300),
     FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
 );
 
@@ -114,7 +107,4 @@ CREATE TABLE appointment (
     branch VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
--- Admin user
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-GRANT ALL PRIVILEGES ON festora_db.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
+
