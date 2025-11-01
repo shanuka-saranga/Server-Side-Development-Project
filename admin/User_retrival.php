@@ -2,26 +2,26 @@
 // ------------------- USER MANAGEMENT PAGE -------------------
 
 // --- INCLUDE DATABASE CONNECTION ---
-require_once '../config/config.php'; // Adjust path if needed
+require_once '../config/config.php'; // Make sure path is correct
 
 // --- HANDLE DELETE ACTION ---
 if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
     $user_id_to_delete = $_GET['delete_id'];
 
-    $sql_delete = "DELETE FROM user WHERE user_id = ?";
+    $sql_delete = "DELETE FROM users WHERE user_id = ?"; 
     if ($stmt = $conn->prepare($sql_delete)) {
         $stmt->bind_param("i", $user_id_to_delete);
         $stmt->execute();
         $stmt->close();
 
-        // Redirect to refresh table and clear URL params
+        // Refresh the page to clear GET parameter
         header("Location: User_retrival.php");
         exit();
     }
 }
 
 // --- FETCH ALL USERS ---
-$sql = "SELECT user_id, name, email, phone, role, created_at FROM user";
+$sql = "SELECT user_id, name, email, phone, role, created_at FROM users"; 
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -62,7 +62,6 @@ $result = $conn->query($sql);
             color: #4CAF50;
         }
 
-        /* Table styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -83,7 +82,6 @@ $result = $conn->query($sql);
         tr:nth-child(even) { background-color: #f9f9f9; }
         tr:hover { background-color: #f1f1f1; }
 
-        /* Delete button style */
         .btn-delete {
             background-color: #f44336;
             color: white;
@@ -97,7 +95,6 @@ $result = $conn->query($sql);
             background-color: #da190b;
         }
 
-        /* Responsive table */
         @media (max-width: 768px) {
             table, thead, tbody, th, td, tr {
                 display: block;
