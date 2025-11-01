@@ -218,19 +218,24 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
         <!-- Menu -->
         <ul class="navbar-menu">
             <li><a href="../Public/index.php" class="<?= $current_page === 'index.php' ? 'active' : '' ?>">Home</a></li>
-            <li><a href="../Public/events.php">Events</a></li>
-            <li><a href="../Public/Contactus.php">Contact Us</a></li>
-            <li><a href="../Public/aboutus.php">About Us</a></li>
+            <li><a href="../Public/events.php" class="<?= $current_page === 'events.php' ? 'active' : '' ?>">Events</a>
+            </li>
+            <li><a href="../Public/Contactus.php"
+                    class="<?= $current_page === 'Contactus.php' ? 'active' : '' ?>">ContactUs</a></li>
+            <li><a href="../Public/organizers.php"
+                    class="<?= $current_page === 'organizers.php' ? 'active' : '' ?>">Organizers</a>
+            </li>
 
             <!-- Booking Dropdown -->
             <li class="dropdown">
                 <a href="../Public/Booking.php"
-                    class="<?= in_array($current_page, ['Booking.php', 'appointment.php']) ? 'active' : '' ?>">
+                    class="<?= in_array($current_page, ['Booking.php', '../Public/appointment.php']) ? 'active' : '' ?>">
                     Booking
                 </a>
                 <ul class="submenu">
                     <li><a href="../Public/appointment.php"
-                            class="<?= $current_page === 'appointment.php' ? 'active' : '' ?>">Appointment</a></li>
+                            class="<?= $current_page === 'appointment.php' ? 'active' : '' ?>">Appointment</a>
+                    </li>
 
                     <li><a href="../Public/Payment.php"
                             class="<?= $current_page === 'Payment.php' ? 'active' : '' ?>">Payment</a></li>
@@ -238,7 +243,7 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
 
             </li>
 
-            <li><a href="Review.php">Reviews</a></li>
+            <li><a href="Review.php" class="<?= $current_page === 'Review.php' ? 'active' : '' ?>">Reviews</a></li>
         </ul>
 
         <!-- RIGHT: AUTH SECTION -->

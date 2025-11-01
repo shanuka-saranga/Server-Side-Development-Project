@@ -5,7 +5,7 @@ require_once '../includes/navbar.php';
 
 // Restrict access for non-logged users
 if (!isset($_SESSION['user_id'])) {
-    echo "
+  echo "
     <div style='
         text-align:center;
         margin:50px auto;
@@ -29,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
         </a>
     </div>
     ";
-    exit();
+  exit();
 }
 
 $message = "";
@@ -318,5 +318,3 @@ mysqli_close($conn);
 </body>
 
 </html>
-
-<?php require_once "../includes/footer.php"; ?>
