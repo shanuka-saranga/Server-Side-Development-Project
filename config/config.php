@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "festora";
+$dbname = "festora_db";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 

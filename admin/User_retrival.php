@@ -21,7 +21,8 @@ if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
 }
 
 // --- FETCH ALL USERS ---
-$sql = "SELECT user_id, name, email, phone, role, created_at FROM users"; 
+$sql = "SELECT id, first_name, last_name, email, phone, created_at FROM users";
+
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
