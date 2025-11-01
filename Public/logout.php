@@ -6,6 +6,6 @@ session_start();
 session_destroy();
 
 // Redirect to ROOT index.php
-header("Location: ../index.php");
+header("Location: ../Public/index.php");
 exit;
 ?>

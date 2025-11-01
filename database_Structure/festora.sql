@@ -69,10 +69,8 @@ CREATE TABLE booking (
     event_start DATETIME NOT NULL,
     event_end DATETIME NOT NULL,
     event_description TEXT,
-    event_id INT,
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -89,7 +87,7 @@ CREATE TABLE payment (
 
 -- Review table
 
-CREATE TABLE reviews (
+CREATE TABLE review (
     review_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
@@ -116,4 +114,7 @@ CREATE TABLE appointment (
     branch VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
-
+-- Admin user
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
+GRANT ALL PRIVILEGES ON festora_db.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
