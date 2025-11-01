@@ -1,20 +1,21 @@
 <?php
 // ------------------- USER MANAGEMENT PAGE -------------------
 session_start();
+
 // --- INCLUDE DATABASE CONNECTION ---
-require_once '../config/config.php'; // Adjust path if needed
+require_once '../config/config.php'; // adjust if needed
 
 // --- HANDLE DELETE ACTION ---
 if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
-    $user_id_to_delete = $_GET['delete_id'];
+    $user_id_to_delete = (int) $_GET['delete_id'];
 
-    $sql_delete = "DELETE FROM user WHERE user_id = ?";
+    $sql_delete = "DELETE FROM users WHERE id = ?";
     if ($stmt = $conn->prepare($sql_delete)) {
         $stmt->bind_param("i", $user_id_to_delete);
         $stmt->execute();
         $stmt->close();
 
-        // Redirect to refresh table and clear URL params
+        // Redirect to refresh table
         header("Location: User_retrival.php");
         exit();
     }
@@ -92,7 +93,7 @@ $result = $conn->query($sql);
             background-color: #f1f1f1;
         }
 
-        /* Delete button style */
+        /* Delete button */
         .btn-delete {
             background-color: #f44336;
             color: white;
@@ -175,7 +176,7 @@ $result = $conn->query($sql);
 
 <body>
     <div class="container">
-        <a href="admin.php" class="back-link">&larr; Back to Dashboard</a>
+        <a href="../admin/dashboard.php" class="back-link">&larr; Back to Dashboard</a>
         <h1>User Management</h1>
 
         <table>
@@ -194,15 +195,16 @@ $result = $conn->query($sql);
                 <?php
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $full_name = trim($row['first_name'] . ' ' . $row['last_name']);
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['user_id']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($full_name ?: '—') . "</td>";
                         echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['phone']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['role']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['phone'] ?: '—') . "</td>";
+                        echo "<td>User</td>"; // default since no role column
                         echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
                         echo "<td>
-                                <a href='User_retrival.php?delete_id=" . htmlspecialchars($row['user_id']) . "' 
+                                <a href='User_retrival.php?delete_id=" . htmlspecialchars($row['id']) . "' 
                                    class='btn-delete'
                                    onclick=\"return confirm('Are you sure you want to delete this user?');\">
                                    Delete

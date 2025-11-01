@@ -1,5 +1,5 @@
 <section class="ribbon"
-    style="height:200px;background-image:url('assests/index/ribbonimg.jpg');background-size:cover;background-position:center;">
+    style="height:200px;background-image:url('../assests/index/ribbonimg.jpg');background-size:cover;background-position:center;">
     <!-- decorative banner; move styles to CSS if desired -->
     <div class="ribbon-text">
         <div class="counter-container">

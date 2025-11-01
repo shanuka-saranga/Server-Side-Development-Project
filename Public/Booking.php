@@ -4,22 +4,22 @@ require_once '../config/config.php';
 require_once '../includes/navbar.php';
 
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
- header("Location: login.php");
+    header("Location: ../Public/login.php");
     exit;
 }
 
 $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['submit'])) {
-    $userName   = mysqli_real_escape_string($conn, $_POST['userName']);
-    $userEmail  = mysqli_real_escape_string($conn, $_POST['userEmail']);
-    $userTel    = mysqli_real_escape_string($conn, $_POST['userTel']);
-    $eventType  = mysqli_real_escape_string($conn, $_POST['event_type']);
-    $location   = mysqli_real_escape_string($conn, $_POST['location']);
+    $userName = mysqli_real_escape_string($conn, $_POST['userName']);
+    $userEmail = mysqli_real_escape_string($conn, $_POST['userEmail']);
+    $userTel = mysqli_real_escape_string($conn, $_POST['userTel']);
+    $eventType = mysqli_real_escape_string($conn, $_POST['event_type']);
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
     $guestCount = intval($_POST['guestCount']);
     $eventStart = mysqli_real_escape_string($conn, $_POST['event_start']);
-    $eventEnd   = mysqli_real_escape_string($conn, $_POST['event_end']);
-    $eventDesc  = mysqli_real_escape_string($conn, $_POST['eventDesc']);
+    $eventEnd = mysqli_real_escape_string($conn, $_POST['event_end']);
+    $eventDesc = mysqli_real_escape_string($conn, $_POST['eventDesc']);
     $sql = "INSERT INTO booking (user_id,full_name, email, phone, event_type, location, guest_count, event_start, event_end, event_description)
             VALUES ('$user_id','$userName', '$userEmail', '$userTel', '$eventType', '$location', '$guestCount', '$eventStart', '$eventEnd', '$eventDesc')";
 
@@ -84,7 +84,8 @@ if (isset($_POST['submit'])) {
                         <option value="Hambantota">Hambantota</option>
                         <option value="Colombo">Colombo</option>
                     </select>
-                    <input type="number" placeholder="Number of Guests" id="guestCount" name="guestCount" required min="1" max="1000" />
+                    <input type="number" placeholder="Number of Guests" id="guestCount" name="guestCount" required
+                        min="1" max="1000" />
                     <input type="datetime-local" id="eventStart" name="event_start" required />
                     <input type="datetime-local" id="eventEnd" name="event_end" required />
                     <textarea placeholder="Tell us about your event" id="eventDesc" name="eventDesc"></textarea>
@@ -110,25 +111,26 @@ if (isset($_POST['submit'])) {
             </form>
 
             </script>
-    <?php if (isset($success) && $success): ?>
-    <script>
-        window.onload = function() {
-            alert("🎉 Your booking has been submitted successfully!");
-        };
-    </script>
-    <?php endif; ?>
+            <?php if (isset($success) && $success): ?>
+                <script>
+                    window.onload = function () {
+                        alert("🎉 Your booking has been submitted successfully!");
+                    };
+                </script>
+            <?php endif; ?>
 
-    <?php if (isset($error)): ?>
-    <script>
-        window.onload = function() {
-            alert("❌ There was an error submitting your booking.");
-        };
-    </script>
-    <?php endif; ?>
+            <?php if (isset($error)): ?>
+                <script>
+                    window.onload = function () {
+                        alert("❌ There was an error submitting your booking.");
+                    };
+                </script>
+            <?php endif; ?>
         </div>
     </section>
-<script src="js/Booking.js"></script>
+    <script src="js/Booking.js"></script>
 </body>
+
 </html>
 
 <?php require_once '../includes/footer.php'; ?>
