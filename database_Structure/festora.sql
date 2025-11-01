@@ -69,10 +69,8 @@ CREATE TABLE booking (
     event_start DATETIME NOT NULL,
     event_end DATETIME NOT NULL,
     event_description TEXT,
-    event_id INT,
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
