@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $payment_method = isset($_POST['payment_method']) ? trim($_POST['payment_method']) : '';
     $payment_date = trim($_POST['pdate']);
     $amount = trim($_POST['amount']);
-    $note = trim($_POST['notice']); // matches your HTML form
+    $note = trim($_POST['notice']); 
 
     // Required fields
     if (empty($email))
