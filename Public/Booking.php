@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../config/config.php';
 require_once '../includes/navbar.php';
 
@@ -7,7 +8,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !is_numeric($
     exit;
 }
 
-
+$user_id = $_SESSION['user_id'];
 
 if (isset($_POST['submit'])) {
     $userName   = mysqli_real_escape_string($conn, $_POST['userName']);
