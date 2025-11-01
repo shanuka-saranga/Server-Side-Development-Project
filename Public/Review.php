@@ -162,6 +162,58 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
         </div>
     <?php endif; ?>
 
+    <!-- Dynamic Reviews from Database -->
+    <div class="dynamic-reviews">
+        <h2>Customer Reviews</h2>
+        <div id="reviewsContainer">
+            <?php if ($result && $NumRows > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="review-name"><?php echo htmlspecialchars($row['name']); ?></span>
+                            <span class="review-rating">
+                                <?php
+                                for ($i = 1; $i <= 5; $i++) {
+                                    echo $i <= $row['rating'] ? '★' : '☆';
+                                }
+                                echo ' (' . $row['rating'] . '/5)';
+                                ?>
+                            </span>
+                        </div>
+
+                        <?php if (!empty($row['event_name'])): ?>
+                            <div class="review-event">Event: <?php echo htmlspecialchars($row['event_name']); ?></div>
+                        <?php endif; ?>
+
+                        <div class="review-comment"><?php echo nl2br(htmlspecialchars($row['comment'])); ?></div>
+
+                        <?php if ($row['recommend'] === 'yes'): ?>
+                            <div class="review-recommend">✓ Recommends our services</div>
+                        <?php endif; ?>
+
+                        <div class="review-date"><?php echo date('F j, Y', strtotime($row['created_at'])); ?></div>
+
+                        <!-- Show edit/delete buttons only for user's own reviews -->
+                        <?php if (isset($row['user_id']) && $row['user_id'] === $_SESSION['user_id']): ?>
+                            <div class="review-actions">
+                                <small>Your review - </small>
+                                <a href="?edit_review=<?php echo $row['review_id']; ?>" class="btn-edit">Edit</a>
+                                <a href="?delete_review=<?php echo $row['review_id']; ?>" class="btn-delete"
+                                    onclick="return confirm('Are you sure you want to delete this review?')">
+                                    Delete
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="no-reviews">
+                    <p>No reviews yet. Be the first to share your experience!</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
     <!-- Review Submission Form -->
     <div class="group">
         <form id="reviewForm" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -265,57 +317,7 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
         </div>
     <?php endif; ?>
 
-    <!-- Dynamic Reviews from Database -->
-    <div class="dynamic-reviews">
-        <h2>Customer Reviews</h2>
-        <div id="reviewsContainer">
-            <?php if ($result && $NumRows > 0): ?>
-                <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="review-item">
-                        <div class="review-header">
-                            <span class="review-name"><?php echo htmlspecialchars($row['name']); ?></span>
-                            <span class="review-rating">
-                                <?php
-                                for ($i = 1; $i <= 5; $i++) {
-                                    echo $i <= $row['rating'] ? '★' : '☆';
-                                }
-                                echo ' (' . $row['rating'] . '/5)';
-                                ?>
-                            </span>
-                        </div>
-
-                        <?php if (!empty($row['event_name'])): ?>
-                            <div class="review-event">Event: <?php echo htmlspecialchars($row['event_name']); ?></div>
-                        <?php endif; ?>
-
-                        <div class="review-comment"><?php echo nl2br(htmlspecialchars($row['comment'])); ?></div>
-
-                        <?php if ($row['recommend'] === 'yes'): ?>
-                            <div class="review-recommend">✓ Recommends our services</div>
-                        <?php endif; ?>
-
-                        <div class="review-date"><?php echo date('F j, Y', strtotime($row['created_at'])); ?></div>
-
-                        <!-- Show edit/delete buttons only for user's own reviews -->
-                        <?php if (isset($row['user_id']) && $row['user_id'] === $_SESSION['user_id']): ?>
-                            <div class="review-actions">
-                                <small>Your review - </small>
-                                <a href="?edit_review=<?php echo $row['review_id']; ?>" class="btn-edit">Edit</a>
-                                <a href="?delete_review=<?php echo $row['review_id']; ?>" class="btn-delete"
-                                    onclick="return confirm('Are you sure you want to delete this review?')">
-                                    Delete
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <div class="no-reviews">
-                    <p>No reviews yet. Be the first to share your experience!</p>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
+    
 
     
 <?php require_once '../includes/footer.php'; ?>   

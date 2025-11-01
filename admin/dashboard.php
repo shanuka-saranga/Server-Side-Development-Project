@@ -170,7 +170,7 @@ $view = $_GET['view'] ?? 'dashboard';
                 <a href="manage_organizers.php" class="dash-btn btn-organizers">Manage Organizers</a>
                 <a href="view_bookings.php" class="dash-btn btn-bookings">View Bookings</a>
                 <a href="view_payments.php" class="dash-btn btn-payments">View Payments</a>
-                <a href="view_reviews.php" class="dash-btn btn-reviews">View Reviews</a>
+                <a href="review_admin.php" class="dash-btn btn-reviews">View Reviews</a>
                 <a href="view_appointments.php" class="dash-btn btn-appointments">View Appointments</a>
                 <a href="add_event.php" class="dash-btn btn-add-event">Add New Event</a>
             </div>
