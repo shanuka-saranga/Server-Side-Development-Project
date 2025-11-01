@@ -4,51 +4,60 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $login_error = "Please login first to submit or manage reviews.";
+}
+
 // Database connection
 require_once '../config/config.php';
 
-// Generate or get user session ID
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['user_id'] = uniqid('user_', true);
+// Generate or get user session ID (only if user is logged in)
+if (isset($_SESSION['user_id']) && !isset($_SESSION['user_identifier'])) {
+    $_SESSION['user_identifier'] = uniqid('user_', true);
 }
 
 // Process form submission
 if (isset($_POST['sub'])) {
-    // Validate required fields
-    if (
-        empty($_POST['name']) || empty($_POST['email']) || empty($_POST['rating']) ||
-        empty($_POST['comment']) || empty($_POST['recommend'])
-    ) {
-        $form_error = "Please fill in all required fields.";
+    if (!isset($_SESSION['user_id'])) {
+        $form_error = "Please login first to submit a review.";
     } else {
-        // Get form data
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $rating = (int) $_POST['rating'];
-        $comment = trim($_POST['comment']);
-        $recommend = $_POST['recommend'];
-        $event_name = isset($_POST['event_name']) ? trim($_POST['event_name']) : '';
-        $user_id = $_SESSION['user_id'];
-        $user_ip = $_SERVER['REMOTE_ADDR'];
-
-        // Validate email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $form_error = "Please enter a valid email address.";
-        }
-        // Validate rating
-        elseif ($rating < 1 || $rating > 5) {
-            $form_error = "Please select a valid rating.";
+        // Validate required fields
+        if (
+            empty($_POST['name']) || empty($_POST['email']) || empty($_POST['rating']) ||
+            empty($_POST['comment']) || empty($_POST['recommend'])
+        ) {
+            $form_error = "Please fill in all required fields.";
         } else {
-            $sql = "INSERT INTO review (name, email, rating, comment, recommend, event_name, user_id, user_ip) 
-                    VALUES ('$name', '$email', $rating, '$comment', '$recommend', '$event_name', '$user_id', '$user_ip')";
+            // Get form data
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
+            $rating = (int) $_POST['rating'];
+            $comment = trim($_POST['comment']);
+            $recommend = $_POST['recommend'];
+            $event_name = isset($_POST['event_name']) ? trim($_POST['event_name']) : '';
+            $user_id = $_SESSION['user_id'];
+            $user_ip = $_SERVER['REMOTE_ADDR'];
 
-            $QueryResult = mysqli_query($conn, $sql);
-
-            if ($QueryResult) {
-                $form_success = "Thank you for your review! It has been submitted successfully.";
-                $_POST = array();
+            // Validate email
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $form_error = "Please enter a valid email address.";
+            }
+            // Validate rating
+            elseif ($rating < 1 || $rating > 5) {
+                $form_error = "Please select a valid rating.";
             } else {
-                $form_error = "Error submitting review. Please try again.";
+                $sql = "INSERT INTO review (name, email, rating, comment, recommend, event_name, user_id, user_ip) 
+                        VALUES ('$name', '$email', $rating, '$comment', '$recommend', '$event_name', '$user_id', '$user_ip')";
+
+                $QueryResult = mysqli_query($conn, $sql);
+
+                if ($QueryResult) {
+                    $form_success = "Thank you for your review! It has been submitted successfully.";
+                    $_POST = array();
+                } else {
+                    $form_error = "Error submitting review. Please try again.";
+                }
             }
         }
     }
@@ -56,52 +65,60 @@ if (isset($_POST['sub'])) {
 
 // Handle review update
 if (isset($_POST['update_review'])) {
-    $review_id = (int) $_POST['review_id'];
-    $user_id = $_SESSION['user_id'];
-
-    // Verify the review belongs to the current user
-    $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
-    $check_result = mysqli_query($conn, $check_sql);
-
-    if (mysqli_num_rows($check_result) > 0) {
-        $name = trim($_POST['name']);
-        $rating = (int) $_POST['rating'];
-        $comment = trim($_POST['comment']);
-        $event_name = trim($_POST['event_name']);
-        $recommend = $_POST['recommend'];
-
-        $update_sql = "UPDATE review SET name='$name', rating=$rating, comment='$comment', 
-                      event_name='$event_name', recommend='$recommend' 
-                      WHERE review_id = $review_id AND user_id = '$user_id'";
-
-        if (mysqli_query($conn, $update_sql)) {
-            $form_success = "Review updated successfully!";
-        } else {
-            $form_error = "Error updating review.";
-        }
+    if (!isset($_SESSION['user_id'])) {
+        $form_error = "Please login first to update reviews.";
     } else {
-        $form_error = "You can only update your own reviews.";
+        $review_id = (int) $_POST['review_id'];
+        $user_id = $_SESSION['user_id'];
+
+        // Verify the review belongs to the current user
+        $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
+        $check_result = mysqli_query($conn, $check_sql);
+
+        if (mysqli_num_rows($check_result) > 0) {
+            $name = trim($_POST['name']);
+            $rating = (int) $_POST['rating'];
+            $comment = trim($_POST['comment']);
+            $event_name = trim($_POST['event_name']);
+            $recommend = $_POST['recommend'];
+
+            $update_sql = "UPDATE review SET name='$name', rating=$rating, comment='$comment', 
+                          event_name='$event_name', recommend='$recommend' 
+                          WHERE review_id = $review_id AND user_id = '$user_id'";
+
+            if (mysqli_query($conn, $update_sql)) {
+                $form_success = "Review updated successfully!";
+            } else {
+                $form_error = "Error updating review.";
+            }
+        } else {
+            $form_error = "You can only update your own reviews.";
+        }
     }
 }
 
 // Handle review deletion
 if (isset($_GET['delete_review'])) {
-    $review_id = (int) $_GET['delete_review'];
-    $user_id = $_SESSION['user_id'];
-
-    // Verify the review belongs to the current user
-    $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
-    $check_result = mysqli_query($conn, $check_sql);
-
-    if (mysqli_num_rows($check_result) > 0) {
-        $delete_sql = "DELETE FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
-        if (mysqli_query($conn, $delete_sql)) {
-            $form_success = "Review deleted successfully!";
-        } else {
-            $form_error = "Error deleting review.";
-        }
+    if (!isset($_SESSION['user_id'])) {
+        $form_error = "Please login first to delete reviews.";
     } else {
-        $form_error = "You can only delete your own reviews.";
+        $review_id = (int) $_GET['delete_review'];
+        $user_id = $_SESSION['user_id'];
+
+        // Verify the review belongs to the current user
+        $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
+        $check_result = mysqli_query($conn, $check_sql);
+
+        if (mysqli_num_rows($check_result) > 0) {
+            $delete_sql = "DELETE FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
+            if (mysqli_query($conn, $delete_sql)) {
+                $form_success = "Review deleted successfully!";
+            } else {
+                $form_error = "Error deleting review.";
+            }
+        } else {
+            $form_error = "You can only delete your own reviews.";
+        }
     }
 }
 
@@ -113,14 +130,18 @@ $sql = "SELECT review_id, name, rating, comment, event_name, created_at, recomme
 $result = mysqli_query($conn, $sql);
 $NumRows = mysqli_num_rows($result);
 
-// Get current user's reviews for editing
-$user_id = $_SESSION['user_id'];
-$user_reviews_sql = "SELECT review_id, name, rating, comment, event_name, recommend 
-                     FROM review 
-                     WHERE user_id = '$user_id' 
-                     ORDER BY created_at DESC";
-$user_reviews_result = mysqli_query($conn, $user_reviews_sql);
-$user_reviews_count = mysqli_num_rows($user_reviews_result);
+// Get current user's reviews for editing (only if logged in)
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $user_reviews_sql = "SELECT review_id, name, rating, comment, event_name, recommend 
+                         FROM review 
+                         WHERE user_id = '$user_id' 
+                         ORDER BY created_at DESC";
+    $user_reviews_result = mysqli_query($conn, $user_reviews_sql);
+    $user_reviews_count = mysqli_num_rows($user_reviews_result);
+} else {
+    $user_reviews_count = 0;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -194,7 +215,7 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
                         <div class="review-date"><?php echo date('F j, Y', strtotime($row['created_at'])); ?></div>
 
                         <!-- Show edit/delete buttons only for user's own reviews -->
-                        <?php if (isset($row['user_id']) && $row['user_id'] === $_SESSION['user_id']): ?>
+                        <?php if (isset($_SESSION['user_id']) && isset($row['user_id']) && $row['user_id'] === $_SESSION['user_id']): ?>
                             <div class="review-actions">
                                 <small>Your review - </small>
                                 <a href="?edit_review=<?php echo $row['review_id']; ?>" class="btn-edit">Edit</a>
@@ -216,7 +237,14 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
 
     <!-- Review Submission Form -->
     <div class="group">
-        <form id="reviewForm" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <?php if (isset($login_error)): ?>
+            <div class="alert alert-error">
+                <?php echo $login_error; ?>
+            </div>
+        <?php endif; ?>
+        
+        <form id="reviewForm" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" 
+              <?php if (!isset($_SESSION['user_id'])) echo 'onsubmit="alert(\'Please login first.\'); return false;"'; ?>>
             <h1>Share Your Experience</h1>
             <p>We would like to hear from you about your experience with our services.</p>
 
@@ -261,12 +289,16 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
                 <label for="no" class="radio-label">No</label>
             </div>
 
-            <button type="submit" name="sub">Submit Review</button>
+            <?php if (!isset($_SESSION['user_id'])): ?>
+                <button type="button" disabled style="background-color: #6c757d; cursor: not-allowed;">Please Login to Submit Review</button>
+            <?php else: ?>
+                <button type="submit" name="sub">Submit Review</button>
+            <?php endif; ?>
         </form>
     </div>
 
     <!-- User's Reviews Section for Editing -->
-    <?php if ($user_reviews_count > 0): ?>
+    <?php if (isset($_SESSION['user_id']) && $user_reviews_count > 0): ?>
         <div class="group user-reviews">
             <h3>Your Reviews (<?php echo $user_reviews_count; ?>)</h3>
             <p>You can edit or delete your reviews below:</p>
@@ -317,9 +349,6 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
         </div>
     <?php endif; ?>
 
-    
-
-    
 <?php require_once '../includes/footer.php'; ?>   
 
     <script>
@@ -343,8 +372,6 @@ $user_reviews_count = mysqli_num_rows($user_reviews_result);
         });
     </script>
 </body>
-
-<?php require_once '../includes/footer.php'; ?>
 
 </html>
 <?php
