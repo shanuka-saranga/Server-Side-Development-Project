@@ -25,7 +25,7 @@ if (isset($_GET['branch']) && $_GET['branch'] != "All") {
 }
 
 // Query all appointments with all columns
-$sql = "SELECT appointment_id, user_id, fname, reason, date, contact, branch, created_at FROM appointment $branchFilter ORDER BY date ASC";
+$sql = "SELECT appointment_id, fname, reason, date, contact, branch, created_at FROM appointment $branchFilter ORDER BY date ASC";
 $result = mysqli_query($conn, $sql);
 
 // Check if query was successful
