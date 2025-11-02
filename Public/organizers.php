@@ -256,25 +256,25 @@ mysqli_close($conn);
     <!-- Organizer Cards -->
     <section class="organizers-section">
         <div class="organizer-card">
-            <img src="../Organizers/shanuka.JPG" alt="Shanuka">
+            <img src="../assests/shanuka.JPG" alt="Shanuka">
             <h3>Shanuka Saranga</h3>
             <p><strong>Event Coordinator</strong></p>
             <p>Turning plans into seamless reality.</p>
         </div>
         <div class="organizer-card">
-            <img src="../Organizers/dilusha.jpg" alt="Dilusha">
+            <img src="../assests/dilusha.jpg" alt="Dilusha">
             <h3>Dilusha Radeeshan</h3>
             <p><strong>Creative Director</strong></p>
             <p>Creative mind behind every event.</p>
         </div>
         <div class="organizer-card">
-            <img src="../Organizers/methum.jpg" alt="Methum">
+            <img src="../assests/methum.jpg" alt="Methum">
             <h3>Methum Weerasinghe</h3>
             <p><strong>Logistics Manager</strong></p>
             <p>Ensuring every detail runs smoothly.</p>
         </div>
         <div class="organizer-card">
-            <img src="../Organizers/tharinda.jpg" alt="Tharinda">
+            <img src="../assests/tharinda.jpg" alt="Tharinda">
             <h3>Tharinda Gimhana</h3>
             <p><strong>Technical Lead</strong></p>
             <p>Powering every event with innovation.</p>
@@ -283,19 +283,19 @@ mysqli_close($conn);
 
     <!-- Team Members -->
     <section class="organizers-section">
-        <div class="organizer-card"><img src="../Organizers/isuru.png">
+        <div class="organizer-card"><img src="../assests/isuru.png">
             <h3>Isuru Shadeep</h3>
             <p><strong>Team Member</strong></p>
         </div>
-        <div class="organizer-card"><img src="../Organizers/tharusha.jpg">
+        <div class="organizer-card"><img src="../assests/tharusha.jpg">
             <h3>Tharusha Sharindi</h3>
             <p><strong>Team Member</strong></p>
         </div>
-        <div class="organizer-card"><img src="../Organizers/samadi.jpg">
+        <div class="organizer-card"><img src="../assests/samadi.jpg">
             <h3>Samadhi de Silva</h3>
             <p><strong>Team Member</strong></p>
         </div>
-        <div class="organizer-card"><img src="../Organizers/imashi.jpg">
+        <div class="organizer-card"><img src="../assests/imashi.jpg">
             <h3>Imashi Madushani</h3>
             <p><strong>Team Member</strong></p>
         </div>
