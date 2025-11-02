@@ -3,7 +3,7 @@ session_start();
 require_once '../config/config.php';
 require_once '../includes/navbar.php';
 
-// Check user login
+
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
     header("Location: ../Public/login.php");
     exit;
@@ -15,23 +15,23 @@ $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
-    // Sanitize inputs
+    
     $userName = mysqli_real_escape_string($conn, $_POST['userName']);
     $userEmail = mysqli_real_escape_string($conn, $_POST['userEmail']);
     $userTel = mysqli_real_escape_string($conn, $_POST['userTel']);
     $eventType = mysqli_real_escape_string($conn, $_POST['event_type']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $guestCount = intval($_POST['guestCount']);
-    $eventStart = str_replace('T', ' ', $_POST['event_start']); // Convert to MySQL DATETIME
+    $eventStart = str_replace('T', ' ', $_POST['event_start']); 
     $eventEnd = str_replace('T', ' ', $_POST['event_end']);
     $eventDesc = mysqli_real_escape_string($conn, $_POST['eventDesc']);
 
-    // Basic validation
+    
     if (
         !empty($userName) && !empty($userEmail) && !empty($userTel) &&
         !empty($eventType) && !empty($location) && $guestCount > 0
     ) {
-        // Prepared statement
+        
         $sql = "INSERT INTO booking 
                 (user_id, full_name, email, phone, event_type, location, guest_count, event_start, event_end, event_description)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
         if ($stmt->execute()) {
             $success = true;
-            $booking_id = $stmt->insert_id; // Get booking_id for payment use
+            $booking_id = $stmt->insert_id; 
         } else {
             $error = "Database Error: " . $conn->error;
         }
