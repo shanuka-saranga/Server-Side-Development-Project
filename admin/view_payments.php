@@ -1,7 +1,6 @@
 <?php
 require_once '../config/config.php';
 
-
 // Delete record if requested
 if (isset($_GET['delete'])) {
     $delete_id = intval($_GET['delete']);
@@ -150,7 +149,7 @@ if (isset($_GET['delete'])) {
     ?>
 </table>
 
-<a href="../Payment/payment.php" class="back-btn">← Back to Payment Form</a>
+<a href="dashboard.php" class="back-btn">← Back to Payment Form</a>
 
 <?php include_once '../includes/footer.php'; ?>
 </body>
