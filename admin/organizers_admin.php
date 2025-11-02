@@ -4,8 +4,8 @@ require_once '../config/config.php';
 // Delete record if requested
 if (isset($_GET['delete'])) {
     $delete_id = intval($_GET['delete']);
-    $conn->query("DELETE FROM team_selections WHERE id = $delete_id");
-    header("Location: admin_team_panel.php");
+    $conn->query("DELETE FROM team_selections WHERE organizer_id = $delete_id");
+    header("Location: organizers_admin.php");
     exit();
 }
 ?>
@@ -133,7 +133,7 @@ if (isset($_GET['delete'])) {
                     <td>{$row['creative']}</td>
                     <td>{$row['technical']}</td>
                     <td>
-                        <button class='action-btn delete-btn' onclick=\"if(confirm('Delete this record?')) window.location.href='admin_team_panel.php?delete={$row['organizer_id']}'\">Delete</button>
+                        <button class='action-btn delete-btn' onclick=\"if(confirm('Delete this record?')) window.location.href='organizers_admin.php?delete={$row['organizer_id']}'\">Delete</button>
                     </td>
                  </tr>";
         }
