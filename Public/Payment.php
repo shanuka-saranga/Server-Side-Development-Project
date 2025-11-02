@@ -63,6 +63,24 @@ mysqli_close($conn);
 <body>
     <?php include_once '../includes/navbar.php'; ?>
 
+    <section>
+        <div class="pageheader" style="background-image: url('../assests/index/ribbonimg.jpg'); 
+                height: 200px; 
+                background-size: cover; 
+                background-position: center; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                color: white; 
+                text-align: center;">
+            <h1>Payment</h1>
+            <span>Simple all ones</span>
+        </div>
+    </section>
+
+
+
     <form name="Payment_form" id="p_form" action="" method="post">
 
         <div class="Pricing_plans">

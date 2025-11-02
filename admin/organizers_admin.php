@@ -12,10 +12,11 @@ if (isset($_GET['delete'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel - Team Selections</title>
-    <link rel="stylesheet" href="../CommonCSS/allnav&footer.css">
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -34,12 +35,13 @@ if (isset($_GET['delete'])) {
             margin: 20px auto;
             border-collapse: collapse;
             background: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 15px;
             text-align: center;
             border-bottom: 1px solid #ddd;
@@ -72,6 +74,14 @@ if (isset($_GET['delete'])) {
             background: #c82333;
         }
 
+        .edit-btn {
+            background: #007bff;
+        }
+
+        .edit-btn:hover {
+            background: #0056b3;
+        }
+
         .back-btn {
             display: block;
             width: 200px;
@@ -100,54 +110,60 @@ if (isset($_GET['delete'])) {
         }
     </style>
 </head>
+
 <body>
 
-<?php include_once '../includes/navbar.php'; ?>
+    <?php include_once '../includes/navbar.php'; ?>
 
-<h2>Admin Panel – Team Selections</h2>
+    <h2>Admin Panel – Team Selections</h2>
 
-<div class="container">
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Coordinator</th>
-        <th>Creative Directors</th>
-        <th>Technical Leads</th>
-        <th>Actions</th>
-    </tr>
+    <div class="container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Coordinator</th>
+                <th>Creative Directors</th>
+                <th>Technical Leads</th>
+                <th>Actions</th>
+            </tr>
 
-    <?php
-    $result = $conn->query("SELECT * FROM team_selections");
+            <?php
+            $result = $conn->query("SELECT * FROM team_selections");
 
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>{$row['organizer_id']}</td>
-                    <td>{$row['name']}</td>
-                    <td>{$row['email']}</td>
-                    <td>{$row['phone']}</td>
-                    <td>{$row['coordinator']}</td>
-                    <td>{$row['creative']}</td>
-                    <td>{$row['technical']}</td>
-                    <td>
-                        <button class='action-btn delete-btn' onclick=\"if(confirm('Delete this record?')) window.location.href='organizers_admin.php?delete={$row['organizer_id']}'\">Delete</button>
-                    </td>
-                 </tr>";
-        }
-    } else {
-        echo "<tr><td colspan='8' class='no-data'>No team selections found.</td></tr>";
-    }
+            if ($result && $result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                        <td>{$row['organizer_id']}</td>
+                        <td>{$row['name']}</td>
+                        <td>{$row['email']}</td>
+                        <td>{$row['phone']}</td>
+                        <td>{$row['coordinator']}</td>
+                        <td>{$row['creative']}</td>
+                        <td>{$row['technical']}</td>
+                        <td>
+                            <a href='edit_organizer.php?id={$row['organizer_id']}' class='action-btn edit-btn'>Edit</a>
+                            <button class='action-btn delete-btn' 
+                                onclick=\"if(confirm('Delete this record?')) window.location.href='organizers_admin.php?delete={$row['organizer_id']}'\">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='8' class='no-data'>No team selections found.</td></tr>";
+            }
 
-    $conn->close();
-    ?>
-</table>
-</div>
+            $conn->close();
+            ?>
+        </table>
+    </div>
 
-<a href="../Organizers/Organizers.php" class="back-btn">← Back to Team Page</a>
+    <a href="../admin/dashboard.php" class="back-btn">← Back to Team Page</a>
 
-<?php include_once '../includes/footer.php'; ?>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
+
 </html>

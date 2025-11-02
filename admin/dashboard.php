@@ -166,18 +166,25 @@ $view = $_GET['view'] ?? 'dashboard';
 
             <div class="dashboard-buttons">
                 <a href="User_retrival.php" class="dash-btn btn-users">Manage Users</a>
-                <a href="manage_events.php" class="dash-btn btn-events">Manage Events</a>
-                <a href="manage_organizers.php" class="dash-btn btn-organizers">Manage Organizers</a>
+                <a href="organizers_admin.php" class="dash-btn btn-organizers">Manage Organizers</a>
                 <a href="booking_retrival.php" class="dash-btn btn-bookings">View Bookings</a>
                 <a href="view_payments.php" class="dash-btn btn-payments">View Payments</a>
                 <a href="review_admin.php" class="dash-btn btn-reviews">View Reviews</a>
                 <a href="appointment-admin.php" class="dash-btn btn-appointments">View Appointments</a>
-                <a href="add_event.php" class="dash-btn btn-add-event">Add New Event</a>
+                <a href="contactus_retrival.php" class="dash-btn btn-add-event">Contact Details</a>
             </div>
 
             <div class="logout-container">
                 <a href="../Public/index.php" class="btn-danger">Log Out</a>
             </div>
+
+            <a href="manage_admins.php" class="action-btn"
+                style="background:#ff6b00;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">
+                Manage Admin Users
+            </a>
+
+
+
         </div>
 
         <footer>
