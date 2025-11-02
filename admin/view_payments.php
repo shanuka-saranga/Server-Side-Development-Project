@@ -5,7 +5,7 @@ require_once '../config/config.php';
 if (isset($_GET['delete'])) {
     $delete_id = intval($_GET['delete']);
     $conn->query("DELETE FROM payment WHERE payment_id = $delete_id");
-    header("Location: admin_payment_panel.php");
+    header("Location: view_payments.php");
     exit();
 }
 ?>
@@ -39,10 +39,13 @@ if (isset($_GET['delete'])) {
             overflow: hidden;
         }
 
-        th, td {
+        th,td {
             padding: 12px 15px;
             text-align: center;
             border-bottom: 1px solid #ddd;
+        }
+        td {
+            color:black;
         }
 
         th {
@@ -123,7 +126,7 @@ if (isset($_GET['delete'])) {
     </tr>
 
     <?php
-    $result = $conn->query("SELECT * FROM payment ORDER BY payment_id DESC");
+    $result = $conn->query("SELECT * FROM payment");
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -137,7 +140,7 @@ if (isset($_GET['delete'])) {
                     <td>{$row['package']}</td>
                     <td>
                         <button class='action-btn edit-btn' onclick=\"window.location.href='edit_payment.php?id={$row['payment_id']}'\">Edit</button>
-                        <button class='action-btn delete-btn' onclick=\"if(confirm('Are you sure you want to delete this payment?')) window.location.href='admin_payment_panel.php?delete={$row['payment_id']}'\">Delete</button>
+                        <button class='action-btn delete-btn' onclick=\"if(confirm('Are you sure you want to delete this payment?')) window.location.href='view_payments.php?delete={$row['payment_id']}'\">Delete</button>
                     </td>
                  </tr>";
         }
@@ -149,7 +152,7 @@ if (isset($_GET['delete'])) {
     ?>
 </table>
 
-<a href="dashboard.php" class="back-btn">← Back to Payment Form</a>
+<a href="dashboard.php" class="back-btn">← Back to Admin Dashboard</a>
 
 <?php include_once '../includes/footer.php'; ?>
 </body>
