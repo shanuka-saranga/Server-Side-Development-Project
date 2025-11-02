@@ -1,11 +1,11 @@
--- Drop database if it exists
+-- Drop and create the database
 DROP DATABASE IF EXISTS festora_db;
-
--- Create database
-CREATE DATABASE festora_db;
+CREATE DATABASE festora_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE festora_db;
 
--- Users table
+-- ------------------------------------------------------------
+-- USERS TABLE
+-- ------------------------------------------------------------
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -14,49 +14,34 @@ CREATE TABLE users (
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB;
 
-
-
-
+-- ------------------------------------------------------------
+-- ADMIN TABLE
+-- ------------------------------------------------------------
 CREATE TABLE admin (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB;
 
--- INSERT INTO admin (username, password) VALUES ('admin', 'admin123');
-
-
--- dont change admin and users table
-
-
-
-
--- Organizer table
-CREATE TABLE organizer (
+-- ------------------------------------------------------------
+-- TEAM SELECTIONS (Organizers)
+-- ------------------------------------------------------------
+CREATE TABLE team_selections (
     organizer_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(20)
-);
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    coordinator VARCHAR(100) DEFAULT NULL,
+    creative VARCHAR(255) DEFAULT NULL,
+    technical VARCHAR(255) DEFAULT NULL
+) ENGINE=InnoDB;
 
-
--- Event table
-CREATE TABLE event (
-    event_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    location VARCHAR(255),
-    start_date DATETIME,
-    end_date DATETIME,
-    organizer_id INT NULL,
-    FOREIGN KEY (organizer_id) REFERENCES organizer(organizer_id) ON DELETE SET NULL
-);
-
-
--- Booking table
+-- ------------------------------------------------------------
+-- BOOKING TABLE
+-- ------------------------------------------------------------
 CREATE TABLE booking (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -70,41 +55,48 @@ CREATE TABLE booking (
     event_end DATETIME NOT NULL,
     event_description TEXT,
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX (user_id)
+) ENGINE=InnoDB;
 
-
--- Payment table
+-- ------------------------------------------------------------
+-- PAYMENT TABLE
+-- ------------------------------------------------------------
 CREATE TABLE payment (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    amount DECIMAL(10,2) NOT NULL,
-    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    payment_method ENUM('card','paypal','other') DEFAULT 'card',
-    status ENUM('success','failed','pending') DEFAULT 'pending',
-    FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
-);
+    email VARCHAR(100) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE NOT NULL,
+    status ENUM('success', 'failed', 'pending') DEFAULT 'pending',
+    note VARCHAR(300),
+) ENGINE=InnoDB;
 
--- Review table
+ALTER TABLE payment
+ADD COLUMN package VARCHAR(50) NOT NULL AFTER note;
 
+
+-- ------------------------------------------------------------
+-- REVIEW TABLE
+-- ------------------------------------------------------------
 CREATE TABLE review (
-    review_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    review_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    rating INT(11) NOT NULL,
+    rating INT NOT NULL,
     comment TEXT NOT NULL,
     recommend ENUM('yes', 'no') NOT NULL,
     event_name VARCHAR(255) NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    user_id INT(11) NOT NULL,
-    user_session VARCHAR(255) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INT NOT NULL,
     user_ip VARCHAR(45) NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX (user_id)
+) ENGINE=InnoDB;
 
-
-
--- Appointment table
+-- ------------------------------------------------------------
+-- APPOINTMENT TABLE
+-- ------------------------------------------------------------
 CREATE TABLE appointment (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     fname VARCHAR(255),
@@ -112,9 +104,24 @@ CREATE TABLE appointment (
     date DATE,
     contact CHAR(10),
     branch VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
--- Admin user
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pwd';
-GRANT ALL PRIVILEGES ON festora_db.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
+-- ------------------------------------------------------------
+-- CONTACT TABLE
+-- ------------------------------------------------------------
+CREATE TABLE contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(100) NOT NULL,
+    telephone VARCHAR(15) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    message_t VARCHAR(255)
+) ENGINE=InnoDB;
+
+-- ------------------------------------------------------------
+-- INDEXES FOR PERFORMANCE
+-- ------------------------------------------------------------
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_booking_user ON booking(user_id);
+CREATE INDEX idx_payment_booking ON payment(booking_id);
+CREATE INDEX idx_review_user ON review(user_id);
