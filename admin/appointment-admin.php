@@ -13,7 +13,7 @@ if (isset($_GET['delete_id'])) {
         header("Location: appointment-admin.php?branch=" . ($_GET['branch'] ?? 'All'));
         exit();
     } else {
-        $delete_message = "<script>alert('Error deleting appointment: " . addslashes(mysqli_error($conn)) . "');</script>";
+        $delete_message = "<script>alert('Error deleting appointment');</script>";
     }
 }
 
@@ -25,7 +25,7 @@ if (isset($_GET['branch']) && $_GET['branch'] != "All") {
 }
 
 // Query all appointments with all columns
-$sql = "SELECT appointment_id, user_id, fname, reason, date, contact, branch, created_at FROM appointment $branchFilter ORDER BY date ASC";
+$sql = "SELECT appointment_id, fname, reason, date, contact, branch, created_at FROM appointment $branchFilter ORDER BY date ASC";
 $result = mysqli_query($conn, $sql);
 
 // Check if query was successful
@@ -51,7 +51,7 @@ if (!$result) {
     }
 
     header {
-      background-color: #ff7900;
+      background-color: #2d2d2d;
       color: white;
       text-align: center;
       padding: 20px 0;
@@ -137,7 +137,7 @@ if (!$result) {
       color: white;
       border: none;
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 20px;
       cursor: pointer;
       font-size: 12px;
       text-decoration: none;
@@ -145,27 +145,9 @@ if (!$result) {
     }
 
     .delete-btn:hover {
-      background-color: #c82333;
+      background-color: #b12130ff;
     }
 
-    .message {
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    .success {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-
-    .error {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
   </style>
 </head>
 <body>
@@ -192,7 +174,6 @@ if (!$result) {
         echo "<table>
                 <tr>
                   <th>Appointment ID</th>
-                  <th>User ID</th>
                   <th>Full Name</th>
                   <th>Event Type</th>
                   <th>Date</th>
@@ -207,12 +188,8 @@ if (!$result) {
             $formatted_date = date('M j, Y', strtotime($row['date']));
             $formatted_created = date('M j, Y g:i A', strtotime($row['created_at']));
             
-            // Handle NULL user_id
-            $user_id = $row['user_id'] ?? 'Guest';
-            
             echo "<tr>
                     <td>" . htmlspecialchars($row['appointment_id']) . "</td>
-                    <td>" . htmlspecialchars($user_id) . "</td>
                     <td>" . htmlspecialchars($row['fname']) . "</td>
                     <td>" . htmlspecialchars($row['reason']) . "</td>
                     <td>" . htmlspecialchars($formatted_date) . "</td>
