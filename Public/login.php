@@ -14,7 +14,7 @@ if (isset($_POST['signup'])) {
     $phone = trim($_POST['phone']);
     $password = $_POST['password'];
 
-    // validation
+    // Validation
     if (empty($first_name))
         $errors[] = "First name is required.";
     if (empty($last_name))
@@ -27,7 +27,7 @@ if (isset($_POST['signup'])) {
         $errors[] = "Password required.";
 
     if (empty($errors)) {
-        // check if email exists
+        // Check if email already exists
         $check = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
         mysqli_stmt_bind_param($check, "s", $email);
         mysqli_stmt_execute($check);
@@ -39,8 +39,13 @@ if (isset($_POST['signup'])) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $insert = mysqli_prepare($conn, "INSERT INTO users (first_name, last_name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
             mysqli_stmt_bind_param($insert, "sssss", $first_name, $last_name, $email, $phone, $hashed_password);
+
             if (mysqli_stmt_execute($insert)) {
-                $success = "Account created! Please log in.";
+                // Auto login after signup (optional)
+                $_SESSION['user_id'] = mysqli_insert_id($conn);
+                $_SESSION['user_name'] = $first_name;
+                header("Location: ../Public/index.php");
+                exit;
             } else {
                 $errors[] = "Something went wrong. Please try again.";
             }
@@ -64,8 +69,8 @@ if (isset($_POST['signin'])) {
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
-            header("Location: ../index.php");
+            $_SESSION['user_name'] = $user['first_name'];
+            header("Location: ../Public/index.php");
             exit;
         } else {
             $error = "Invalid email or password.";
@@ -74,7 +79,6 @@ if (isset($_POST['signin'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,15 +86,12 @@ if (isset($_POST['signin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../Public/assests/css/login.css">
-
     <title>Festora - Login / Signup</title>
-
-    <!-- Your beautiful CSS -->
 </head>
 
 <body>
 
-    <div class="container" id="container" class="<?= !empty($success) ? 'right-panel-active' : '' ?>">
+    <div class="container" id="container">
 
         <!-- ===================== SIGN UP ===================== -->
         <div class="form-container sign-up-container">
@@ -99,17 +100,18 @@ if (isset($_POST['signin'])) {
 
                 <?php if (!empty($errors)): ?>
                     <div class="msg error"><?= implode('<br>', $errors) ?></div>
-                <?php elseif (isset($success)): ?>
+                <?php elseif (!empty($success)): ?>
                     <div class="msg success"><?= $success ?></div>
                 <?php endif; ?>
 
-                <input type="text" name="first_name" placeholder="First Name" value="<?= $_POST['first_name'] ?? '' ?>"
-                    required />
-                <input type="text" name="last_name" placeholder="Last Name" value="<?= $_POST['last_name'] ?? '' ?>"
-                    required />
-                <input type="email" name="email" placeholder="Email" value="<?= $_POST['email'] ?? '' ?>" required />
-                <input type="text" name="phone" placeholder="Phone Number" value="<?= $_POST['phone'] ?? '' ?>"
-                    required />
+                <input type="text" name="first_name" placeholder="First Name"
+                    value="<?= htmlspecialchars($_POST['first_name'] ?? '') ?>" required />
+                <input type="text" name="last_name" placeholder="Last Name"
+                    value="<?= htmlspecialchars($_POST['last_name'] ?? '') ?>" required />
+                <input type="email" name="email" placeholder="Email"
+                    value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required />
+                <input type="text" name="phone" placeholder="Phone Number"
+                    value="<?= htmlspecialchars($_POST['phone'] ?? '') ?>" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <button type="submit" name="signup">Sign Up</button>
             </form>
@@ -120,8 +122,8 @@ if (isset($_POST['signin'])) {
             <form method="POST">
                 <h1>Sign In</h1>
 
-                <?php if (isset($error)): ?>
-                    <div class="msg error"><?= $error ?></div>
+                <?php if (!empty($error)): ?>
+                    <div class="msg error"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>
 
                 <input type="email" name="email" placeholder="Email" required />

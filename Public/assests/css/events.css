@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+.myAllItems {
+    margin-top: 3%;
+}
+
+#myPara {
+    margin: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0px 8px;
+}
+
+/*Responsive tag*/
+@media screen and (max-width:650px) {
+    .column {
+        width: 100%;
+        display: block;
+    }
+
+    .countdownBox {
+        width: 100%;
+        display: block;
+    }
+}
+
+.card {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.434);
+    border-radius: 10px;
+    margin: 10px;
+    position: relative;
+}
+
+/* img{
+    border-radius: 10px 10px 0 0;
+} */
+
+.photo {
+    border-radius: 10px 10px 0px 0px;
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.btn {
+    opacity: 0;
+    position: absolute;
+    transition: .3s ease;
+    cursor: pointer;
+    z-index: 1;
+    color: #f87a04;
+    font-size: 20px;
+    background: linear-gradient(to bottom, rgba(60, 60, 60, 0.94), rgba(43, 43, 43, 0.94));
+}
+
+a {
+    text-decoration: none;
+    color: #f87a04;
+    font-family: "Nunito", sans-serif;
+}
+
+.cardPhoto {
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardPhoto:hover .btn {
+    opacity: 1;
+    padding: 3%;
+    border-radius: 7px;
+}
+
+.cardPhoto:hover .photo {
+    filter: brightness(50%);
+}
+
+
+.container {
+    padding: 16px;
+    padding-bottom: 23px;
+    text-align: center;
+    background-color: #454545;
+    color: rgb(255, 255, 255);
+    border-radius: 0px 0px 10px 10px;
+}
+
+/*This is called ClearFix Technique. This is used to fix issues while using Floated Eliments.
+This ensures the perent expand properly to wrap floated child elemnts*/
+.container::after,
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+h2 {
+    color: #f87a04;
+}
+
+/* Countdown */
+
+#counth1,
+small {
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 0px 10px rgb(255, 255, 255);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.countdownBox {
+    border: 3px solid #f87a04;
+    border-radius: 10px;
+    width: 48.3%;
+    padding: 10px;
+    transform: scale(1.5);
+    margin-bottom: 25px;
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+    color: aliceblue;
+}
+
+.videoBG {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: brightness(0.6);
+}
+
+.title_countdown {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+.num_countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    text-align: center;
+    font-size: 15px;
+}
+
+#day,
+#hour,
+#min,
+#sec {
+    font-size: 40px;
+    font-family: 'Orbitron', sans-serif;
+}

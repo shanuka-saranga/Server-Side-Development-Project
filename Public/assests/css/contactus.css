@@ -1,0 +1,134 @@
+.contact {
+    position: relative;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+}
+
+.contact .content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact .content h2 {
+    font-size: 40px;
+    font-weight: 500;
+    color: black;
+}
+
+.contact .content p {
+    font-weight: 300;
+    color: black;
+}
+
+.container {
+    background-image: url(back.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.container .contactInfo {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .contactInfo .box {
+    position: relative;
+    padding: 20px 0;
+    display: flex;
+}
+
+.icon img {
+    min-width: 30px;
+    height: 30px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.container .contactInfo .box .text {
+    display: flex;
+    margin-left: 20px;
+    font-size: 16px;
+    color: #151414;
+    flex-direction: column;
+    font-weight: 300;
+}
+
+.container .contactInfo .box .text h3 {
+    font-weight: 500;
+    color: #0e0d0d;
+}
+
+.contactForm {
+    width: 40%;
+    padding: 40px;
+    background: #9c8f8f;
+    margin: 20px 20px;
+}
+
+.contactForm h2 {
+    font-size: 30px;
+    font-weight: 500;
+    color: #333;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+}
+
+textarea {
+
+    padding: 2px;
+    margin-bottom: 15px;
+    border: 1px solid#bdc3c7;
+    border-radius: 5px;
+    background-color: #ecf0f1;
+    font-size: 16px;
+    color: #333;
+}
+
+label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+#submit,
+#reset {
+
+    padding: 10px;
+    background-color: #ff7900;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100px;
+}
+
+#submit:hover,
+#reset:hover {
+    background-color: #d26302;
+    transition: 0.3s ease;
+}
