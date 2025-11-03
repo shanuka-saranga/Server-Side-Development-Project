@@ -1,3 +1,5 @@
+<?php ob_start(); ?>
+
 <?php
 session_start();
 require_once '../config/config.php';
@@ -161,13 +163,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 <body>
 
     <section>
-        <div class="container">
-            <?php if ($success): ?>
-                <div class="success-msg">🎉 Your booking has been submitted successfully!</div>
-            <?php elseif (!empty($error)): ?>
-                <div class="error-msg"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
 
+    <?php
+        if ($success) {
+    header("Location: Payment.php");
+    exit;
+}
+?>
+        <div class="container">
             <div class="progress-bar">
                 <div class="step active">1. Details</div>
                 <div class="step">2. Event</div>
@@ -268,5 +271,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 </body>
 
 </html>
+<?php ob_end_flush(); ?>
 
 <?php require_once '../includes/footer.php'; ?>
