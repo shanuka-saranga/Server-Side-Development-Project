@@ -249,9 +249,29 @@ mysqli_close($conn);
     <?php include_once '../includes/navbar.php'; ?>
 
     <div class="pageheader">
-        <h1>Meet Our Organizers</h1>
-        <span>The amazing team making every event unforgettable</span>
+        <h1></h1>
+        <span></span>
     </div>
+
+
+    <section>
+        <div class="pageheader" style="background-image: url('../assests/index/ribbonimg.jpg'); 
+                height: 200px; 
+                background-size: cover; 
+                background-position: center; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                color: white; 
+                text-align: center;">
+            <h1>Meet Our Organizers</h1>
+            <span>The amazing team making every event unforgettable</span>
+        </div>
+    </section>
+
+
+
 
     <!-- Organizer Cards -->
     <section class="organizers-section">

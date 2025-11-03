@@ -1,9 +1,9 @@
 <?php
-// Start PHP session for user tracking
+// session start
 session_start();
 
 
-// Check if user is logged in
+// Check user log or not
 if (!isset($_SESSION['user_id'])) {
     $login_error = "Please login first to submit or manage reviews.";
 }
@@ -11,12 +11,12 @@ if (!isset($_SESSION['user_id'])) {
 // Database connection
 require_once '../config/config.php';
 
-// Generate or get user session ID (only if user is logged in)
+// get user id if not genarate
 if (isset($_SESSION['user_id']) && !isset($_SESSION['user_identifier'])) {
     $_SESSION['user_identifier'] = uniqid('user_', true);
 }
 
-// Process form submission
+// form submission
 if (isset($_POST['sub'])) {
     if (!isset($_SESSION['user_id'])) {
         $form_error = "Please login first to submit a review.";
@@ -70,7 +70,7 @@ if (isset($_POST['update_review'])) {
         $review_id = (int) $_POST['review_id'];
         $user_id = $_SESSION['user_id'];
 
-        // Verify the review belongs to the current user
+        // Verify review belong to current user
         $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
         $check_result = mysqli_query($conn, $check_sql);
 
@@ -96,7 +96,7 @@ if (isset($_POST['update_review'])) {
     }
 }
 
-// Handle review deletion
+//  review delete
 if (isset($_GET['delete_review'])) {
     if (!isset($_SESSION['user_id'])) {
         $form_error = "Please login first to delete reviews.";
@@ -104,7 +104,7 @@ if (isset($_GET['delete_review'])) {
         $review_id = (int) $_GET['delete_review'];
         $user_id = $_SESSION['user_id'];
 
-        // Verify the review belongs to the current user
+        // Verify review belong to current user
         $check_sql = "SELECT review_id FROM review WHERE review_id = $review_id AND user_id = '$user_id'";
         $check_result = mysqli_query($conn, $check_sql);
 
@@ -129,7 +129,7 @@ $sql = "SELECT review_id, name, rating, comment, event_name, created_at, recomme
 $result = mysqli_query($conn, $sql);
 $NumRows = mysqli_num_rows($result);
 
-// Get current user's reviews for editing (only if logged in)
+// if user logged get that users reviews for edditing
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $user_reviews_sql = "SELECT review_id, name, rating, comment, event_name, recommend 
@@ -156,12 +156,23 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <?php include_once '../includes/navbar.php'; ?>
 
-    <div class="pageheader">
-        <div class="pageheader-container">
-            <h1 id="headid">Reviews</h1>
-            <p>Transforming your events into unforgettable experiences with Us.</p>
-        </div>
+    
+
+     <section>
+    <div class="pageheader" style="background-image: url('../assests/index/ribbonimg.jpg'); 
+                height: 200px; 
+                background-size: cover; 
+                background-position: center; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                color: white; 
+                text-align: center;">
+      <h1>Reviews</h1>
+      <span>Transforming your events into unforgettable experiences with Us.</span>
     </div>
+  </section>
 
     <div class="sub">
         <h1>Your Party, Our Passion!</h1>
@@ -182,7 +193,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
     <?php endif; ?>
 
-    <!-- Dynamic Reviews from Database -->
+    <!-- Reviews from Database -->
     <div class="dynamic-reviews">
         <h2>Customer Reviews</h2>
         <div id="reviewsContainer">
@@ -213,7 +224,7 @@ if (isset($_SESSION['user_id'])) {
 
                         <div class="review-date"><?php echo date('F j, Y', strtotime($row['created_at'])); ?></div>
 
-                        <!-- Show edit/delete buttons only for user's own reviews -->
+                        <!-- Show edit/delete buttons only for their reviews -->
                         <?php if (isset($_SESSION['user_id']) && isset($row['user_id']) && $row['user_id'] === $_SESSION['user_id']): ?>
                             <div class="review-actions">
                                 <small>Your review - </small>

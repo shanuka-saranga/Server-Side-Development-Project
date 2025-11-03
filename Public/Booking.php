@@ -1,12 +1,17 @@
+<?php ob_start(); ?>
+
 <?php
 session_start();
 require_once '../config/config.php';
 require_once '../includes/navbar.php';
 
 
+
+// Check if user is not logged in
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
-    header("Location: ../Public/login.php");
-    exit;
+    echo "<p>Please log in first to access this page.</p>";
+    echo '<a href="../Public/login.php">Go to Login Page</a>';
+    exit; // Stop the rest of the page from loading
 }
 
 $user_id = $_SESSION['user_id'];
@@ -15,23 +20,23 @@ $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
-    
+
     $userName = mysqli_real_escape_string($conn, $_POST['userName']);
     $userEmail = mysqli_real_escape_string($conn, $_POST['userEmail']);
     $userTel = mysqli_real_escape_string($conn, $_POST['userTel']);
     $eventType = mysqli_real_escape_string($conn, $_POST['event_type']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $guestCount = intval($_POST['guestCount']);
-    $eventStart = str_replace('T', ' ', $_POST['event_start']); 
+    $eventStart = str_replace('T', ' ', $_POST['event_start']);
     $eventEnd = str_replace('T', ' ', $_POST['event_end']);
     $eventDesc = mysqli_real_escape_string($conn, $_POST['eventDesc']);
 
-    
+
     if (
         !empty($userName) && !empty($userEmail) && !empty($userTel) &&
         !empty($eventType) && !empty($location) && $guestCount > 0
     ) {
-        
+
         $sql = "INSERT INTO booking 
                 (user_id, full_name, email, phone, event_type, location, guest_count, event_start, event_end, event_description)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -52,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
         if ($stmt->execute()) {
             $success = true;
-            $booking_id = $stmt->insert_id; 
+            $booking_id = $stmt->insert_id;
         } else {
             $error = "Database Error: " . $conn->error;
         }
@@ -160,14 +165,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
 <body>
 
-    <section>
-        <div class="container">
-            <?php if ($success): ?>
-                <div class="success-msg">🎉 Your booking has been submitted successfully!</div>
-            <?php elseif (!empty($error)): ?>
-                <div class="error-msg"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
 
+
+    <section>
+        <?php
+        if ($success) {
+            header("Location: Payment.php");
+            exit;
+        }
+        ?>
+        <div class="container">
             <div class="progress-bar">
                 <div class="step active">1. Details</div>
                 <div class="step">2. Event</div>
@@ -268,5 +275,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 </body>
 
 </html>
-
+<?php ob_end_flush(); ?>
 <?php require_once '../includes/footer.php'; ?>

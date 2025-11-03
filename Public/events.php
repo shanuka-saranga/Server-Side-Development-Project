@@ -15,6 +15,21 @@
     <?php require_once '../includes/navbar.php'; ?>
 
     <!-- My Items -->
+    <section>
+        <div class="pageheader" style="background-image: url('../assests/index/ribbonimg.jpg'); 
+                height: 200px; 
+                background-size: cover; 
+                background-position: center; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                color: white; 
+                text-align: center;">
+            <h1>Events</h1>
+            <span>Whats we have</span>
+        </div>
+    </section>
 
     <p id="myPara">We specialize in organizing seamless and unforgettable events, from corporate meetups to vibrant
         social gatherings. Whether it's a business conference, a product launch, a wedding, or a community festival, we

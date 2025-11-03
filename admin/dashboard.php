@@ -180,7 +180,7 @@ $view = $_GET['view'] ?? 'dashboard';
 
             <a href="manage_admins.php" class="action-btn"
                 style="background:#ff6b00;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">
-                Manage Admin Users
+                Manage Admin
             </a>
 
 
