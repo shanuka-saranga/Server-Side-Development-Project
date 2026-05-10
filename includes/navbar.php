@@ -24,7 +24,7 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
         }
 
         body {
-            padding-top: 50px;
+            padding-top: 0;
             font-family: Arial, sans-serif;
         }
 
@@ -166,41 +166,330 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
         }
 
         /* RESPONSIVE */
-        @media (max-width: 768px) {
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: #ff6b00;
+            font-size: 24px;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #ff6b00;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Extra small devices (phones, less than 576px) */
+        @media (max-width: 575px) {
+            body {
+                padding-top: 0;
+            }
+
             .navbar-container {
-                flex-direction: column;
-                padding: 15px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 12px;
+                height: auto;
+            }
+
+            .navbar-logo {
+                font-size: 1.2rem;
+                white-space: nowrap;
+            }
+
+            .navbar-logo img {
+                width: 28px;
+                height: 28px;
+                margin-right: 5px;
+            }
+
+            .hamburger {
+                display: flex;
+                order: 2;
             }
 
             .navbar-menu {
-                margin: 15px 0;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 20px;
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: #2d2d2d;
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s ease;
+                list-style: none;
+                padding: 20px 0;
+                gap: 15px;
+                z-index: 999;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+
+            .navbar-menu.active {
+                left: 0;
+            }
+
+            .navbar-menu li {
+                margin: 10px 0;
+            }
+
+            .navbar-menu a {
+                display: block;
+                padding: 12px 20px;
+                font-size: 15px;
             }
 
             .navbar-auth {
-                gap: 15px;
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: #2d2d2d;
+                width: 100%;
+                padding: 20px 0;
+                text-align: center;
+                transition: right 0.3s ease;
+                z-index: 999;
             }
 
-            body {
-                padding-top: 140px;
+            .navbar-auth.active {
+                right: 0;
             }
 
-            /* Mobile: show submenu on tap (optional improvement) */
+            .btn-auth {
+                padding: 10px 20px;
+                margin: 5px 0;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 14px;
+            }
+
+            .user-profile {
+                flex-direction: column;
+                margin: 10px 0;
+                font-size: 13px;
+            }
+
+            .user-profile img {
+                width: 35px;
+                height: 35px;
+            }
+
+            /* Submenu for mobile */
             .navbar-menu .submenu {
                 position: static;
                 box-shadow: none;
-                background: #3a3a3a;
+                background-color: #3a3a3a;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                padding: 0;
             }
 
-            .navbar-menu>li:hover>.submenu {
+            .navbar-menu li.dropdown.active .submenu {
+                max-height: 200px;
+                padding: 10px 0;
+            }
+
+            .navbar-menu .submenu li a {
+                padding: 10px 30px;
+                font-size: 14px;
+            }
+        }
+
+        /* Small devices (landscape phones, 576px to 767px) */
+        @media (min-width: 576px) and (max-width: 767px) {
+            body {
+                padding-top: 0;
+            }
+
+            .navbar-container {
+                flex-direction: row;
+                padding: 12px 15px;
+                justify-content: space-between;
+            }
+
+            .navbar-logo {
+                font-size: 1.4rem;
+            }
+
+            .navbar-logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .hamburger {
+                display: flex;
+                order: 2;
+            }
+
+            .navbar-menu {
+                position: fixed;
+                top: 75px;
+                left: -100%;
+                flex-direction: column;
+                background-color: #2d2d2d;
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s ease;
+                padding: 15px 0;
+                gap: 10px;
+                z-index: 999;
+            }
+
+            .navbar-menu.active {
+                left: 0;
+            }
+
+            .navbar-auth {
+                position: fixed;
+                top: 75px;
+                right: -100%;
+                flex-direction: column;
+                background-color: #2d2d2d;
+                width: 100%;
+                padding: 15px 0;
+                transition: right 0.3s ease;
+                z-index: 999;
+            }
+
+            .navbar-auth.active {
+                right: 0;
+            }
+
+            .btn-auth {
+                padding: 9px 15px;
+                margin: 4px 0;
+                font-size: 13px;
+            }
+
+            .navbar-menu .submenu {
+                position: static;
+                background-color: #3a3a3a;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                padding: 0;
+            }
+
+            .navbar-menu li.dropdown.active .submenu {
+                max-height: 180px;
+                padding: 10px 0;
+            }
+        }
+
+        /* Medium devices (tablets, 768px to 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            body {
+                padding-top: 0;
+            }
+
+            .navbar-container {
+                padding: 12px 25px;
+            }
+
+            .hamburger {
                 display: none;
             }
 
-            .navbar-menu>li:active>.submenu,
-            .navbar-menu>li:focus-within>.submenu {
-                display: block;
+            .navbar-menu {
+                gap: 20px;
+            }
+
+            .navbar-menu a {
+                font-size: 15px;
+                padding: 8px 0;
+            }
+
+            .btn-auth {
+                padding: 8px 15px;
+                font-size: 13px;
+                margin-right: 5px;
+            }
+
+            .user-profile {
+                font-size: 13px;
+            }
+
+            .navbar-menu .submenu {
+                min-width: 160px;
+            }
+
+            .navbar-menu .submenu li a {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+
+        /* Large devices (desktops, 992px and up) */
+        @media (min-width: 992px) {
+            body {
+                padding-top: 0;
+            }
+
+            .navbar-container {
+                padding: 15px 20px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .navbar-logo {
+                font-size: 24px;
+            }
+
+            .navbar-menu {
+                gap: 30px;
+                flex-direction: row;
+            }
+
+            .navbar-menu a {
+                font-size: 16px;
+            }
+
+            .navbar-auth {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .btn-auth {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .navbar-menu .submenu {
+                min-width: 180px;
+            }
+
+            .navbar-menu .submenu li a {
+                padding: 10px 20px;
+                font-size: 15px;
             }
         }
     </style>
@@ -215,8 +504,15 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
             Festora
         </a>
 
+        <!-- Hamburger Menu -->
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <!-- Menu -->
-        <ul class="navbar-menu">
+        <ul class="navbar-menu" id="navbar-menu">
             <li><a href="../Public/index.php" class="<?= $current_page === 'index.php' ? 'active' : '' ?>">Home</a></li>
             <li><a href="../Public/events.php" class="<?= $current_page === 'events.php' ? 'active' : '' ?>">Events</a>
             </li>
@@ -227,7 +523,7 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
             </li>
 
             <!-- Booking Dropdown -->
-            <li class="dropdown">
+            <li class="dropdown" id="booking-dropdown">
                 <a href="../Public/Booking.php"
                     class="<?= in_array($current_page, ['Booking.php', '../Public/appointment.php']) ? 'active' : '' ?>">
                     Booking
@@ -247,7 +543,7 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
         </ul>
 
         <!-- RIGHT: AUTH SECTION -->
-        <div class="navbar-auth">
+        <div class="navbar-auth" id="navbar-auth">
 
             <!-- NOT LOGGED IN -->
             <?php if (!$is_logged_in && !$is_admin_logged_in): ?>
@@ -283,6 +579,51 @@ $is_admin_logged_in = !empty($_SESSION['admin_id']);
 
         </div>
     </nav>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navbarMenu = document.getElementById('navbar-menu');
+        const navbarAuth = document.getElementById('navbar-auth');
+        const bookingDropdown = document.getElementById('booking-dropdown');
+
+        // Hamburger menu click
+        hamburger.addEventListener('click', function () {
+            hamburger.classList.toggle('active');
+            navbarMenu.classList.toggle('active');
+            navbarAuth.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        const navLinks = navbarMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                hamburger.classList.remove('active');
+                navbarMenu.classList.remove('active');
+                navbarAuth.classList.remove('active');
+            });
+        });
+
+        // Mobile dropdown toggle for Booking
+        if (bookingDropdown) {
+            bookingDropdown.addEventListener('click', function (e) {
+                if (window.innerWidth <= 767) {
+                    e.preventDefault();
+                    bookingDropdown.classList.toggle('active');
+                }
+            });
+        }
+
+        // Close dropdown when window is resized to desktop
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 767) {
+                bookingDropdown.classList.remove('active');
+                hamburger.classList.remove('active');
+                navbarMenu.classList.remove('active');
+                navbarAuth.classList.remove('active');
+            }
+        });
+    </script>
 
 </body>
 

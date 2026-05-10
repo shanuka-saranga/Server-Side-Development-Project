@@ -675,3 +675,399 @@
         padding: 10px 0;
     }
 }
+
+/* ====== ENHANCED MOBILE RESPONSIVE DESIGN ====== */
+
+/* Extra small devices (phones, less than 576px) */
+@media (max-width: 575px) {
+    .slider {
+        height: 250px;
+    }
+
+    .slider-height {
+        height: 300px;
+    }
+
+    .text-area {
+        width: 85%;
+        padding: 15px;
+    }
+
+    .text-area h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .text-area p {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .text-area button {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    .slider .dots li {
+        width: 8px;
+        height: 8px;
+        margin: 8px 5px;
+    }
+
+    .slider .dots li.active {
+        width: 20px;
+    }
+
+    .welcome-text {
+        padding: 1.5rem;
+    }
+
+    .welcome-text h1 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .welcome-text p {
+        font-size: 0.9rem;
+    }
+
+    .explain {
+        padding: 1.5rem;
+        margin-left: 0;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .service-section {
+        padding: 1.5rem 0;
+    }
+
+    .Service-text {
+        padding: 1.5rem;
+    }
+
+    .Service-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .Service-text p {
+        font-size: 0.9rem;
+    }
+
+    .service-containner {
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .service {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .service img {
+        height: 120px;
+        width: 120px;
+    }
+
+    .service h1 {
+        font-size: 1.1rem;
+    }
+
+    .service p {
+        font-size: 0.85rem;
+    }
+
+    .ribbon {
+        height: 120px;
+    }
+
+    .ribbon-text {
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 20px;
+    }
+
+    .counter-container {
+        font-size: 14px;
+        margin: 10px;
+    }
+
+    .container {
+        padding: 30px 0;
+    }
+
+    .image-wrapper {
+        margin-left: 0;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .image-wrapper img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+    }
+
+    .image1,
+    .image2 {
+        margin-top: 0;
+        margin-right: 0;
+    }
+
+    .text-box {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+        padding: 15px;
+        transform: none;
+        top: auto;
+        left: auto;
+        z-index: auto;
+        text-align: left;
+    }
+
+    .text-box h2 {
+        font-size: 1.3rem;
+    }
+
+    .ptitiles {
+        margin-top: 15px;
+    }
+
+    .ptitile1 {
+        margin-bottom: 8px;
+    }
+
+    .ptitile1 p {
+        font-size: 0.9rem;
+        margin-left: 8px;
+    }
+
+    #explore,
+    #btn {
+        padding: 8px 12px;
+        width: auto;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small devices (landscape phones, 576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .slider {
+        height: 300px;
+    }
+
+    .slider-height {
+        height: 350px;
+    }
+
+    .text-area {
+        width: 80%;
+    }
+
+    .text-area h1 {
+        font-size: 1.8rem;
+    }
+
+    .text-area p {
+        font-size: 0.9rem;
+    }
+
+    .welcome-text {
+        padding: 1.5rem 2rem;
+    }
+
+    .welcome-text h1 {
+        font-size: 1.8rem;
+    }
+
+    .explain {
+        padding: 1.5rem 2rem;
+        margin-left: 0;
+    }
+
+    .Service-text {
+        padding: 1.5rem 2rem;
+    }
+
+    .Service-text h1 {
+        font-size: 2rem;
+    }
+
+    .service-containner {
+        padding: 20px;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .service img {
+        height: 150px;
+        width: 150px;
+    }
+
+    .image-wrapper img {
+        width: 250px;
+        height: 350px;
+    }
+
+    .text-box {
+        left: 55%;
+        transform: translate(-50%, -50%);
+    }
+
+    .container {
+        padding: 40px 0;
+    }
+}
+
+/* Medium devices (tablets, 768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .slider {
+        height: 400px;
+    }
+
+    .slider-height {
+        height: 450px;
+    }
+
+    .text-area {
+        width: 75%;
+    }
+
+    .text-area h1 {
+        font-size: 2rem;
+    }
+
+    .text-area p {
+        font-size: 0.95rem;
+    }
+
+    .welcome-text {
+        padding: 2rem 5rem;
+    }
+
+    .welcome-text h1 {
+        font-size: 2rem;
+    }
+
+    .explain {
+        padding: 2rem 5rem;
+        margin-left: 50px;
+    }
+
+    .Service-text {
+        padding: 2rem 5rem;
+    }
+
+    .Service-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .service-containner {
+        padding: 25px;
+        gap: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .service {
+        flex: 1 1 calc(50% - 15px);
+        min-width: 200px;
+    }
+
+    .service img {
+        height: 180px;
+        width: 180px;
+    }
+
+    .image-wrapper img {
+        width: 280px;
+        height: 400px;
+    }
+
+    .text-box {
+        left: 62%;
+    }
+
+    .container {
+        padding: 45px 0;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .slider {
+        height: 500px;
+    }
+
+    .slider-height {
+        height: 600px;
+    }
+
+    .text-area {
+        width: 50%;
+    }
+
+    .text-area h1 {
+        font-size: 2.5rem;
+    }
+
+    .welcome-text {
+        padding: 2rem 10rem;
+    }
+
+    .welcome-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .explain {
+        padding: 2rem 10rem;
+        gap: 20px;
+        margin-left: 50px;
+    }
+
+    .Service-text {
+        padding: 2rem 10rem;
+    }
+
+    .Service-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .service-containner {
+        padding: 30px;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .service {
+        flex: 1 1 auto;
+    }
+
+    .service img {
+        height: 200px;
+        width: 200px;
+    }
+
+    .image-wrapper {
+        margin-left: 10%;
+    }
+
+    .image-wrapper img {
+        width: 300px;
+        height: 450px;
+    }
+
+    .text-box {
+        left: 65%;
+    }
+
+    .container {
+        padding: 50px 0;
+    }
+
+    .ribbon-text {
+        gap: 100px;
+    }
+}
