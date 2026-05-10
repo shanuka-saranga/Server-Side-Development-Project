@@ -31,12 +31,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if (empty($package))
         $errors[] = "Package selection is required.";
 
+    // Card validation if payment method is card
+    if ($payment_method === "Debit or Credit Card") {
+        $card_number = isset($_POST['card_number']) ? trim($_POST['card_number']) : '';
+        $card_expiry = isset($_POST['card_expiry']) ? trim($_POST['card_expiry']) : '';
+        $card_cvv = isset($_POST['card_cvv']) ? trim($_POST['card_cvv']) : '';
+
+        if (empty($card_number))
+            $errors[] = "Card number is required.";
+        if (empty($card_expiry))
+            $errors[] = "Card expiry date is required.";
+        if (empty($card_cvv))
+            $errors[] = "CVV is required.";
+    }
+
     if (empty($errors)) {
         $stmt = $conn->prepare("INSERT INTO payment (email, payment_method, amount, payment_date, note, package) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssdsss", $email, $payment_method, $amount, $payment_date, $note, $package);
 
         if ($stmt->execute()) {
-            $success_msg = "Payment submitted successfully!";
+            $success_msg = "✓ Payment submitted successfully! Transaction ID: " . uniqid("TXN") . " | Amount: $" . $amount . " | Status: Completed";
         } else {
             $error_msg = "Database Error: " . $conn->error;
         }
@@ -127,9 +141,35 @@ mysqli_close($conn);
 
                 <h3>Payment Methods</h3>
                 <div class="payment_method">
-                    <input type="radio" name="payment_method" value="Debit or Credit Card"> Debit or Credit Card<br>
+                    <input type="radio" name="payment_method" value="Debit or Credit Card" id="card_option"> Debit or
+                    Credit Card<br>
                     <input type="radio" name="payment_method" value="Paypal"> Paypal<br>
                     <input type="radio" name="payment_method" value="Bank Transfers"> Bank Transfers
+                </div>
+
+                <!-- Card Details Section (Hidden by default) -->
+                <div class="card_details_section" id="card_details_section"
+                    style="display: none; margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                    <h4>Card Details</h4>
+                    <div class="input_details">
+                        <div class="i_email">
+                            <label for="card_number">Card Number:</label>
+                            <input class="text_inputs" type="text" id="card_number" name="card_number"
+                                placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                    </div>
+                    <div class="input_details input_row">
+                        <div class="i_address">
+                            <label for="card_expiry">Expiry Date (MM/YY):</label>
+                            <input class="text_inputs" type="text" id="card_expiry" name="card_expiry"
+                                placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="i_phone">
+                            <label for="card_cvv">CVV:</label>
+                            <input class="text_inputs" type="text" id="card_cvv" name="card_cvv" placeholder="123"
+                                maxlength="4">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="input_details">
@@ -167,6 +207,29 @@ mysqli_close($conn);
     </form>
 
     <script>
+        // Show/Hide card details based on payment method
+        const paymentMethodRadios = document.getElementsByName('payment_method');
+        const cardDetailsSection = document.getElementById('card_details_section');
+        const cardNumberInput = document.getElementById('card_number');
+        const cardExpiryInput = document.getElementById('card_expiry');
+        const cardCvvInput = document.getElementById('card_cvv');
+
+        paymentMethodRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === 'Debit or Credit Card') {
+                    cardDetailsSection.style.display = 'block';
+                    cardNumberInput.required = true;
+                    cardExpiryInput.required = true;
+                    cardCvvInput.required = true;
+                } else {
+                    cardDetailsSection.style.display = 'none';
+                    cardNumberInput.required = false;
+                    cardExpiryInput.required = false;
+                    cardCvvInput.required = false;
+                }
+            });
+        });
+
         function validateForm(event) {
             const paymentMethodRadios = document.getElementsByName('payment_method');
             const packageRadios = document.getElementsByName('package');
@@ -197,6 +260,31 @@ mysqli_close($conn);
                 event.preventDefault();
                 alert('Please select a payment method to Continue!');
                 return false;
+            }
+
+            // Validate card details if card payment method is selected
+            if (document.getElementById('card_option').checked) {
+                const cardNumber = cardNumberInput.value.trim();
+                const cardExpiry = cardExpiryInput.value.trim();
+                const cardCvv = cardCvvInput.value.trim();
+
+                if (cardNumber === '' || cardNumber.length < 13) {
+                    event.preventDefault();
+                    alert('Please enter a valid card number!');
+                    return false;
+                }
+
+                if (cardExpiry === '' || !cardExpiry.match(/^\d{2}\/\d{2}$/)) {
+                    event.preventDefault();
+                    alert('Please enter expiry date in MM/YY format!');
+                    return false;
+                }
+
+                if (cardCvv === '' || cardCvv.length < 3) {
+                    event.preventDefault();
+                    alert('Please enter a valid CVV!');
+                    return false;
+                }
             }
 
             return true;

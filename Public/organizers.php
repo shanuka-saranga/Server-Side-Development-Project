@@ -3,7 +3,7 @@ session_start();
 
 // Optional: Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../auth/login.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -248,10 +248,7 @@ mysqli_close($conn);
 
     <?php include_once '../includes/navbar.php'; ?>
 
-    <div class="pageheader">
-        <h1></h1>
-        <span></span>
-    </div>
+
 
 
     <section>
@@ -281,24 +278,16 @@ mysqli_close($conn);
             <p><strong>Event Coordinator</strong></p>
             <p>Turning plans into seamless reality.</p>
         </div>
-        <div class="organizer-card">
-            <img src="../assests/dilusha.jpg" alt="Dilusha">
-            <h3>Dilusha Radeeshan</h3>
-            <p><strong>Creative Director</strong></p>
-            <p>Creative mind behind every event.</p>
-        </div>
+
         <div class="organizer-card">
             <img src="../assests/methum.jpg" alt="Methum">
             <h3>Methum Weerasinghe</h3>
             <p><strong>Logistics Manager</strong></p>
             <p>Ensuring every detail runs smoothly.</p>
         </div>
-        <div class="organizer-card">
-            <img src="../assests/tharinda.jpg" alt="Tharinda">
-            <h3>Tharinda Gimhana</h3>
-            <p><strong>Technical Lead</strong></p>
-            <p>Powering every event with innovation.</p>
-        </div>
+
+
+
     </section>
 
     <!-- Team Members -->
@@ -319,6 +308,8 @@ mysqli_close($conn);
             <h3>Imashi Madushani</h3>
             <p><strong>Team Member</strong></p>
         </div>
+
+
     </section>
 
     <!-- Feedback Form -->

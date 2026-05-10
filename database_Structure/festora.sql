@@ -69,7 +69,7 @@ CREATE TABLE payment (
     amount DECIMAL(10, 2) NOT NULL,
     payment_date DATE NOT NULL,
     status ENUM('success', 'failed', 'pending') DEFAULT 'pending',
-    note VARCHAR(300),
+    note VARCHAR(300)
 ) ENGINE=InnoDB;
 
 ALTER TABLE payment
@@ -123,5 +123,4 @@ CREATE TABLE contact (
 -- ------------------------------------------------------------
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_booking_user ON booking(user_id);
-CREATE INDEX idx_payment_booking ON payment(booking_id);
 CREATE INDEX idx_review_user ON review(user_id);

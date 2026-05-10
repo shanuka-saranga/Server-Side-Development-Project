@@ -170,6 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     <section>
         <?php
         if ($success) {
+            echo "<script>alert('Message submitted successfully!');</script>";
             header("Location: Payment.php");
             exit;
         }
